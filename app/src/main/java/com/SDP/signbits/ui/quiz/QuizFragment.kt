@@ -1,4 +1,4 @@
-package com.SDP.signbits.ui.notifications
+package com.SDP.signbits.ui.quiz
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
 
-class NotificationsFragment : Fragment() {
+class QuizFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var quizViewModel: QuizViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(this, Observer {
+        quizViewModel =
+            ViewModelProviders.of(this).get(QuizViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_quiz, container, false)
+        val textView: TextView = root.findViewById(R.id.text_quiz)
+        quizViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
