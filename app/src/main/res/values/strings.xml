@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SignBits</string>
+    <string name="title_Home">Home</string>
+    <string name="title_Learnmode">Learn</string>
+    <string name="title_Quizmode">Quiz</string>
+    <string name="title_Setting">Notifications</string>
+</resources>
