@@ -19,4 +19,9 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Quiz Strings -->
+    <string name="Quiz_Level">Level 1</string>
+    <string name="letter">A</string>
+    <string name="quizviewcontent">The image showing the letter</string>
 </resources>

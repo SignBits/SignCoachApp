@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_learn"
         android:name="com.SDP.signbits.ui.learn.LearnFragment"
         android:label="@string/title_Learnmode"
         tools:layout="@layout/fragment_learn" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_quiz"
         android:name="com.SDP.signbits.ui.quiz.QuizFragment"
         android:label="@string/title_Quizmode"
         tools:layout="@layout/fragment_quiz" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.SDP.signbits.ui.setting.SettingFragment"
+        android:label="@string/title_Setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>
