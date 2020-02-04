@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">SignBits</string>
+    <string name="app_name">SignCoach</string>
     <string name="title_Home">Home</string>
     <string name="title_Learnmode">Learn</string>
     <string name="title_Quizmode">Quiz</string>
-    <string name="title_Setting">Setting</string>
+    <string name="title_Setting">Settings</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -22,6 +22,5 @@
 
     <!-- Quiz Strings -->
     <string name="Quiz_Level">Level 1</string>
-    <string name="letter">A</string>
     <string name="quizviewcontent">The image showing the letter</string>
 </resources>

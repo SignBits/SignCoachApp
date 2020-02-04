@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/letter"
+        android:text="@string/app_name"
         android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
