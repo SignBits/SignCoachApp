@@ -47,15 +47,12 @@ class MainActivity : AppCompatActivity() {
 
         alphabet.forEach {
             val btnTag = Button(this)
-            btnTag.layoutParams =
-                LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            btnTag.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             btnTag.textSize = 32.0f
             btnTag.textAlignment = TEXT_ALIGNMENT_CENTER
             btnTag.text = it.toString()
             btnTag.id = it.toInt()
-
             btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
-
             linearLayout.addView(btnTag)
         }
     }
