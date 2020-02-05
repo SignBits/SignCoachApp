@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendFingerspellRequest(char: Char){
-        val fingerspellEndpoint = "http://pikachu:5000/api/fingerspell/"
+        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
 
         val params: HashMap<String, String> = hashMapOf(
             "characterSequence" to char.toString()
