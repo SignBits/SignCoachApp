@@ -47,21 +47,18 @@ class MainActivity : AppCompatActivity() {
 
         alphabet.forEach {
             val btnTag = Button(this)
-            btnTag.layoutParams =
-                LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            btnTag.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             btnTag.textSize = 32.0f
             btnTag.textAlignment = TEXT_ALIGNMENT_CENTER
             btnTag.text = it.toString()
             btnTag.id = it.toInt()
-
             btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
-
             linearLayout.addView(btnTag)
         }
     }
 
     private fun sendFingerspellRequest(char: Char){
-        val fingerspellEndpoint = "http://pikachu:5000/api/fingerspell/"
+        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
 
         val params: HashMap<String, String> = hashMapOf(
             "characterSequence" to char.toString()
