@@ -34,69 +34,69 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val dictionaryScrollView: LinearLayout = findViewById(R.id.dictionaryScrollView)
-
-        populateDictionary(dictionaryScrollView)
+//        val dictionaryScrollView: LinearLayout = findViewById(R.id.dictionaryScrollView)
+//
+//        populateDictionary(dictionaryScrollView)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
-    private fun populateDictionary(linearLayout: LinearLayout){
-        val alphabet = 'A'..'Z'
-
-        alphabet.forEach {
-            val btnTag = Button(this)
-            btnTag.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-            btnTag.textSize = 32.0f
-            btnTag.textAlignment = TEXT_ALIGNMENT_CENTER
-            btnTag.text = it.toString()
-            btnTag.id = it.toInt()
-            btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
-            linearLayout.addView(btnTag)
-        }
-    }
-
-    private fun sendFingerspellRequest(char: Char){
-        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
-
-        val params: HashMap<String, String> = hashMapOf(
-            "characterSequence" to char.toString()
-        )
-
-        val jsonParams = JSONObject(params.toMap())
-
-        val request = object: JsonObjectRequest(
-            POST,
-            fingerspellEndpoint,
-            jsonParams,
-            Response.Listener { response ->
-                // Process the json
-                try {
-                    println("Response: $response")
-                }catch (e:Exception){
-                    println("Exception: $e")
-                }
-
-            }, Response.ErrorListener{
-                // Error in request
-                println("Volley error: $it")
-            }){
-
-            override fun getHeaders(): HashMap<String, String>{
-                return hashMapOf("Content-Type" to "application/json")
-            }
-        }
-
-        // Volley request policy, only one time request to avoid duplicate transaction
-        request.retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
-            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
-            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        )
-
-        VolleySingleton.getInstance(this).addToRequestQueue(request)
-    }
+//    private fun populateDictionary(linearLayout: LinearLayout){
+//        val alphabet = 'A'..'Z'
+//
+//        alphabet.forEach {
+//            val btnTag = Button(this)
+//            btnTag.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+//            btnTag.textSize = 32.0f
+//            btnTag.textAlignment = TEXT_ALIGNMENT_CENTER
+//            btnTag.text = it.toString()
+//            btnTag.id = it.toInt()
+//            btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
+//            linearLayout.addView(btnTag)
+//        }
+//    }
+//
+//    private fun sendFingerspellRequest(char: Char){
+//        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
+//
+//        val params: HashMap<String, String> = hashMapOf(
+//            "characterSequence" to char.toString()
+//        )
+//
+//        val jsonParams = JSONObject(params.toMap())
+//
+//        val request = object: JsonObjectRequest(
+//            POST,
+//            fingerspellEndpoint,
+//            jsonParams,
+//            Response.Listener { response ->
+//                // Process the json
+//                try {
+//                    println("Response: $response")
+//                }catch (e:Exception){
+//                    println("Exception: $e")
+//                }
+//
+//            }, Response.ErrorListener{
+//                // Error in request
+//                println("Volley error: $it")
+//            }){
+//
+//            override fun getHeaders(): HashMap<String, String>{
+//                return hashMapOf("Content-Type" to "application/json")
+//            }
+//        }
+//
+//        // Volley request policy, only one time request to avoid duplicate transaction
+//        request.retryPolicy = DefaultRetryPolicy(
+//            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
+//            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+//            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+//        )
+//
+//        VolleySingleton.getInstance(this).addToRequestQueue(request)
+//    }
 
 
 }
