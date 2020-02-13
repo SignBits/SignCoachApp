@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.SDP.signbits.R
+import com.SDP.signbits.RPIHandler
 import com.SDP.signbits.VolleySingleton
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
@@ -56,49 +55,12 @@ class HomeFragment : Fragment() {
             btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
             btnTag.text = it.toString()
             btnTag.id = it.toInt()
-            btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
+            btnTag.setOnClickListener { _ -> RPIHandler.getInstance(this.requireContext()).sendFingerSpellRequest(it
+                .toString())
+            }
             linearLayout.addView(btnTag)
         }
     }
 
-    private fun sendFingerspellRequest(char: Char){
-        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
 
-        val params: HashMap<String, String> = hashMapOf(
-            "characterSequence" to char.toString()
-        )
-
-        val jsonParams = JSONObject(params.toMap())
-
-        val request = object: JsonObjectRequest(
-            Method.POST,
-            fingerspellEndpoint,
-            jsonParams,
-            Response.Listener { response ->
-                // Process the json
-                try {
-                    println("Response: $response")
-                }catch (e:Exception){
-                    println("Exception: $e")
-                }
-
-            }, Response.ErrorListener{
-                // Error in request
-                println("Volley error: $it")
-            }){
-
-            override fun getHeaders(): HashMap<String, String>{
-                return hashMapOf("Content-Type" to "application/json")
-            }
-        }
-
-        // Volley request policy, only one time request to avoid duplicate transaction
-        request.retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
-            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
-            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        )
-
-        VolleySingleton.getInstance(this.requireContext()).addToRequestQueue(request)
-    }
 }
