@@ -23,4 +23,10 @@
     <!-- Quiz Strings -->
     <string name="Quiz_Level">Level 1</string>
     <string name="quizviewcontent">The image showing the letter</string>
+
+    <!-- Letter Strings -->
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
 </resources>
