@@ -68,6 +68,14 @@ class RPiHandler constructor(private val context: Context) {
         throw NotImplementedError("Have not implemented this method!")
     }
 
+    /**
+     * We might also want to use usb to connect to RPi initially to tell RPi the WiFi info and
+     * also its MAC address.
+     */
+    fun connectToRPiViaUsb(){
+        throw NotImplementedError("Have not implemented this method!")
+    }
+
     private fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>){
 
         val jsonParams = JSONObject(params.toMap())
@@ -103,4 +111,5 @@ class RPiHandler constructor(private val context: Context) {
 
         VolleySingleton.getInstance(this.context).addToRequestQueue(request)
     }
+
 }
