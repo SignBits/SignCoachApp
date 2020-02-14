@@ -8,6 +8,7 @@ import org.json.JSONObject
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
+ * This class should be created only when an RPi ip address is known.
  *
  * @param context The only constructor param is context of the handler.
  *
@@ -32,7 +33,6 @@ class RPIHandler constructor(private val context: Context) {
             }
     }
 
-
     /**
      * This methods send finger spell request to the RPI.
      *
@@ -47,12 +47,30 @@ class RPIHandler constructor(private val context: Context) {
         val params: HashMap<String, String> = hashMapOf(
             "characterSequence" to charSequence.toString()
         )
+        sendPostRequest(fingerspellEndpoint, params)
+    }
+
+    /**
+     * This method should search all the devices available over Wifi.
+     */
+    fun searchDeviceOverWifi(){
+        throw NotImplementedError("Have not implemented this method!")
+    }
+
+    /**
+     * This method connect to the device the user choose and change the endpoint of the class.
+     */
+    fun connectToDevice(deviceHostName : String){
+        throw NotImplementedError("Have not implemented this method!")
+    }
+
+    fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>){
 
         val jsonParams = JSONObject(params.toMap())
 
         val request = object: JsonObjectRequest(
             Method.POST,
-            fingerspellEndpoint,
+            endpoint,
             jsonParams,
             Response.Listener { response ->
                 // Process the json
@@ -80,19 +98,5 @@ class RPIHandler constructor(private val context: Context) {
         )
 
         VolleySingleton.getInstance(this.context).addToRequestQueue(request)
-    }
-
-    /**
-     * This method should search all the devices available over Wifi.
-     */
-    fun searchDeviceOverWifi(){
-        throw NotImplementedError("Have not implemented this method!")
-    }
-
-    /**
-     * This method connect to the device the user choose and change the endpoint of the class.
-     */
-    fun connectToDevice(deviceHostName : String){
-        throw NotImplementedError("Have not implemented this method!")
     }
 }
