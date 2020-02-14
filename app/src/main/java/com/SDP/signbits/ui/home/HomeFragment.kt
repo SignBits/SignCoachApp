@@ -11,12 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
-import com.SDP.signbits.RPIHandler
-import com.SDP.signbits.VolleySingleton
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import org.json.JSONObject
+import com.SDP.signbits.RPiHandler
+
 
 class HomeFragment : Fragment() {
 
@@ -42,6 +38,28 @@ class HomeFragment : Fragment() {
     }
 
 
+//    private fun populateDictionary(linearLayout: LinearLayout){
+//        val alphabet = 'A'..'Z'
+//
+//        alphabet.forEach {
+//            val btnTag = Button(activity)
+//            btnTag.layoutParams = LinearLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//            btnTag.textSize = 32.0f
+//            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
+//            btnTag.text = it.toString()
+//            btnTag.id = it.toInt()
+//            btnTag.setOnClickListener { _ -> RPIHandler.getInstance(this.requireContext())
+//                .sendFingerSpellRequest(
+//                    it.toString()
+//                )
+//            }
+//            linearLayout.addView(btnTag)
+//        }
+//    }
+
     private fun populateDictionary(linearLayout: LinearLayout){
         val alphabet = 'A'..'Z'
 
@@ -55,8 +73,10 @@ class HomeFragment : Fragment() {
             btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
             btnTag.text = it.toString()
             btnTag.id = it.toInt()
-            btnTag.setOnClickListener { _ -> RPIHandler.getInstance(this.requireContext()).sendFingerSpellRequest(it
-                .toString())
+            btnTag.setOnClickListener { _ -> RPiHandler.getInstance(this.requireContext())
+                .postFingerSpellRequest(
+                    it.toString()
+                )
             }
             linearLayout.addView(btnTag)
         }

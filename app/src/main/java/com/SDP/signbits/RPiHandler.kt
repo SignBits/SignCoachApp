@@ -8,28 +8,32 @@ import org.json.JSONObject
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
+ *
  * This class should be created only when an RPi ip address is known.
+ * This class is used to interface with a RPi, once a connection has already been established.
+ *
+ * It owns all possible ways of communicating with the pi, once a connection has been established.
  *
  * @param context The only constructor param is context of the handler.
  *
  */
 
-class RPIHandler constructor(private val context: Context) {
+class RPiHandler constructor(private val context: Context) {
 
     /**
      * This is the variable of the endpoint of the device. in the format
      * of "http://{ip-address}:{port}". By default it is the testing ip of our pikachu!
      */
-    private var endPoint: String = "http://192.168.105.150:5000"
+    var endPoint: String = "http://192.168.105.150:5000"
     /**
      * This is the getInstance method of the singleton class.
      */
     companion object {
         @Volatile
-        private var INSTANCE: RPIHandler? = null
+        private var INSTANCE: RPiHandler? = null
         fun getInstance(context: Context) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: RPIHandler(context).also { INSTANCE = it }
+                INSTANCE ?: RPiHandler(context).also { INSTANCE = it }
             }
     }
 
@@ -38,10 +42,8 @@ class RPIHandler constructor(private val context: Context) {
      *
      * @param charSequence This param is the character sequence to send to Pi. Might be character
      * or string.
-     * @param context This is the context the class is in. In Fragment, it is the "activity"
-     * while in an activity it is "this".
      */
-    fun sendFingerSpellRequest(charSequence: CharSequence){
+    fun postFingerSpellRequest(charSequence: CharSequence){
         val fingerspellEndpoint = endPoint + "/api/fingerspell/"
 
         val params: HashMap<String, String> = hashMapOf(
@@ -51,20 +53,22 @@ class RPIHandler constructor(private val context: Context) {
     }
 
     /**
-     * This method should search all the devices available over Wifi.
+     * This method gets basic device info.
+     * Need to implement with a get request here.
      */
-    fun searchDeviceOverWifi(){
+    fun getDeviceInfo(){
         throw NotImplementedError("Have not implemented this method!")
     }
 
     /**
-     * This method connect to the device the user choose and change the endpoint of the class.
+     * This method updates the basic information of the device, if allowed to.
+     * Need to implement with a put request here.
      */
-    fun connectToDevice(deviceHostName : String){
+    fun updateDeviceInfo(){
         throw NotImplementedError("Have not implemented this method!")
     }
 
-    fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>){
+    private fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>){
 
         val jsonParams = JSONObject(params.toMap())
 
