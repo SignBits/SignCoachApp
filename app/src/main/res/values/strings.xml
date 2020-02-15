@@ -33,4 +33,5 @@
     <!-- Quiz page buttons-->
     <string name="C2F">Character To Fingerspell</string>
     <string name="F2C">Fingerspell To Character</string>
+    <string name="quizpage">Quiz</string>
 </resources>

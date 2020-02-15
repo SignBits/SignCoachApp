@@ -30,11 +30,8 @@ class QuizFragment : Fragment() {
         quizViewModel =
             ViewModelProviders.of(this).get(QuizViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_quiz, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_quiz)
-//        quizViewModel.text.observe(this, Observer {
-//            textView.text = it
-//        })
 
+        // These are the buttons in the quiz fragment view
         val buttonC2F : Button = root.findViewById(R.id.button)
         val buttonF2C : Button = root.findViewById(R.id.button2)
 
@@ -48,7 +45,13 @@ class QuizFragment : Fragment() {
         return root
     }
 
-    fun convertToAnotherFragment(fragment: Fragment){
+    /**
+     * This is the method to convert to another fragment.
+     *
+     * @param fragment This is the fragment of the destination. Need to be a fragment object instead
+     *        of Fragment Id etc
+     */
+    private fun convertToAnotherFragment(fragment: Fragment){
         val fragmentManger : FragmentManager = requireFragmentManager()
         fragmentManger.beginTransaction().replace(this.id, fragment).commit()
 

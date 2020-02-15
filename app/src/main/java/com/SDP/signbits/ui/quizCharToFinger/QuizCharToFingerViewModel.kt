@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class QuizCharToFingerViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-                value = "This is Fragment: Quiz -- Character to Fingerspell"
+//                value = "This is Fragment: Quiz -- Character to Fingerspell"
     }
     val text: LiveData<String> = _text
 }

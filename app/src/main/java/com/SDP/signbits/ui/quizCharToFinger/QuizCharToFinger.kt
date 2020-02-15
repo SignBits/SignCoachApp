@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -27,14 +28,20 @@ class QuizCharToFinger : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(QuizCharToFingerViewModel::class.java)
         val root = inflater.inflate(R.layout.quiz_char_to_finger_fragment, container, false)
-        val textView: TextView = root.findViewById(R.id.text_quiz)
-        viewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+
+        val button : Button = root.findViewById(R.id.Button)
+        button.setOnClickListener{
+            backToQuiz()
+        }
+
         return root
     }
 
-    fun backToQuiz() {
+    /**
+     * This is the method to go back to the quiz fragment. Click on the Quiz text in Char2Finger Page
+     * will go back
+     */
+    private fun backToQuiz() {
         val fragmentManager : FragmentManager = requireFragmentManager()
         fragmentManager.beginTransaction().replace(this.id, QuizFragment()).commit()
     }
