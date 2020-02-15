@@ -1,14 +1,22 @@
 package com.SDP.signbits.ui.quiz
 
 import android.os.Bundle
+import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
+import com.SDP.signbits.ui.quizCharToFinger.QuizCharToFinger
+import com.SDP.signbits.ui.quizFingerToChar.QuizFingerToChar
+import com.google.android.material.snackbar.SnackbarContentLayout
+import kotlinx.android.synthetic.main.fragment_quiz.*
 
 class QuizFragment : Fragment() {
 
@@ -22,10 +30,31 @@ class QuizFragment : Fragment() {
         quizViewModel =
             ViewModelProviders.of(this).get(QuizViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_quiz, container, false)
-        val textView: TextView = root.findViewById(R.id.text_quiz)
-        quizViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+//        val textView: TextView = root.findViewById(R.id.text_quiz)
+//        quizViewModel.text.observe(this, Observer {
+//            textView.text = it
+//        })
+
+        val buttonC2F : Button = root.findViewById(R.id.button)
+        val buttonF2C : Button = root.findViewById(R.id.button2)
+
+        buttonC2F.setOnClickListener{
+            convertToAnotherFragment()
+        }
+
+        buttonF2C.setOnClickListener{
+            convertToAnotherFragment()
+        }
         return root
+    }
+
+    fun convertToAnotherFragment(){
+        val fragmentManger : FragmentManager = requireFragmentManager()
+        try {
+            fragmentManger.beginTransaction().replace(this.id, QuizFingerToChar()).commit()
+        } catch (e : Exception) {
+            Log.d("1", e.message)
+        }
+
     }
 }
