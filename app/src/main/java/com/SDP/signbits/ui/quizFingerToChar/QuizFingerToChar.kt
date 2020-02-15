@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.SDP.signbits.R
+import com.SDP.signbits.ui.quiz.QuizFragment
 
 
 class QuizFingerToChar : Fragment() {
@@ -21,9 +23,11 @@ class QuizFingerToChar : Fragment() {
     private lateinit var viewModel: QuizFingerToCharViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProviders.of(this).get(QuizFingerToCharViewModel::class.java)
         val root = inflater.inflate(R.layout.quiz_finger_to_char_fragment, container, false)
         val textView: TextView = root.findViewById(R.id.textView2)
         viewModel.text.observe(this, Observer {
@@ -32,10 +36,10 @@ class QuizFingerToChar : Fragment() {
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(QuizFingerToCharViewModel::class.java)
-        // TODO: Use the ViewModel
+    fun backToQuiz() {
+        val fragmentManager : FragmentManager = requireFragmentManager()
+        fragmentManager.beginTransaction().replace(this.id, QuizFragment()).commit()
     }
+
 
 }

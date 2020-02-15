@@ -39,22 +39,18 @@ class QuizFragment : Fragment() {
         val buttonF2C : Button = root.findViewById(R.id.button2)
 
         buttonC2F.setOnClickListener{
-            convertToAnotherFragment()
+            convertToAnotherFragment(QuizCharToFinger.newInstance())
         }
 
         buttonF2C.setOnClickListener{
-            convertToAnotherFragment()
+            convertToAnotherFragment(QuizFingerToChar.newInstance())
         }
         return root
     }
 
-    fun convertToAnotherFragment(){
+    fun convertToAnotherFragment(fragment: Fragment){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        try {
-            fragmentManger.beginTransaction().replace(this.id, QuizFingerToChar()).commit()
-        } catch (e : Exception) {
-            Log.d("1", e.message)
-        }
+        fragmentManger.beginTransaction().replace(this.id, fragment).commit()
 
     }
 }
