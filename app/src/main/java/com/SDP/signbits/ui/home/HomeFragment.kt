@@ -10,8 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.SDP.signbits.R
 import com.SDP.signbits.VolleySingleton
 import com.android.volley.DefaultRetryPolicy

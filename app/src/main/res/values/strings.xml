@@ -29,4 +29,9 @@
     <string name="B">B</string>
     <string name="C">C</string>
     <string name="D">D</string>
+
+    <!-- Quiz page buttons-->
+    <string name="C2F">Character To Fingerspell</string>
+    <string name="F2C">Fingerspell To Character</string>
+    <string name="quizpage">Quiz</string>
 </resources>
