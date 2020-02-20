@@ -11,7 +11,9 @@ import androidx.fragment.app.FragmentManager
 
 import com.SDP.signbits.R
 import com.SDP.signbits.ui.quiz.QuizViewModel
-
+import com.SDP.signbits.ui.quizCharToFinger.QuizCharToFinger
+import com.SDP.signbits.ui.settingoptions.SettingTermFragment
+import com.SDP.signbits.ui.settingcontact.SettingContactFragment
 class SettingFragment : Fragment() {
 
     companion object {
@@ -35,10 +37,12 @@ class SettingFragment : Fragment() {
         val textterms : TextView = root.findViewById(R.id.textView5)
         val textcache : TextView = root.findViewById(R.id.textView6)
         val textRpi : TextView = root.findViewById(R.id.textView7)
-//        textupdates.setOnClickListener{
-//            convertToAnotherFragment(SettingTerms.newInstance())
-//        }
-
+        textterms.setOnClickListener{
+            convertToAnotherFragment(SettingTermFragment.newInstance())
+        }
+        textcontactus.setOnClickListener{
+            convertToAnotherFragment(SettingContactFragment.newInstance())
+        }
         return root
     }
 

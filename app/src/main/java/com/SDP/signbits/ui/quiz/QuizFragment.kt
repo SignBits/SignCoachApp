@@ -18,6 +18,7 @@ import com.SDP.signbits.ui.quizFingerToChar.QuizFingerToChar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import kotlinx.android.synthetic.main.fragment_quiz.*
 
+
 class QuizFragment : Fragment() {
 
     private lateinit var quizViewModel: QuizViewModel
