@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="53dp"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Check for Updates"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="53dp"
         android:text="Search for SignBot"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +36,7 @@
         android:layout_marginBottom="53dp"
         android:text="Contact Us"
         android:textSize="35sp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="53dp"
         android:text="Terms and Conditions"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +60,7 @@
         android:layout_marginBottom="53dp"
         android:text="Clear Cache"
         android:textSize="35sp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -67,6 +72,7 @@
         android:layout_marginBottom="53dp"
         android:text="Update RPI Software"
         android:textSize="35sp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
