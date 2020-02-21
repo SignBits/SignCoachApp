@@ -45,4 +45,5 @@ dependencies {
 
     //Custom dependencies
     implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.trycatch.android:mysnackbar:1.2.2'
 }

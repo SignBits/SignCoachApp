@@ -2,6 +2,7 @@ package com.SDP.signbits
 
 import android.content.Context
 import android.os.Bundle
+import android.util.JsonReader
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         val alphabet = 'A'..'Z'
+        var learningProgress : HashMap<String, Int> = hashMapOf(
+            "learning progress" to 0,
+            "CharToFin quiz" to 0,
+            "FinToChar quiz" to 0
+        )
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +35,11 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-
+        val file = File("learningProgress.json")
+        if (file.exists()){
+            val input : InputStream = openFileInput(file.readText())
+            val reader = JsonReader(InputStreamReader(input))
+        }
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

@@ -20,13 +20,15 @@
             android:id="@+id/textViewPB1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/learningProgress"
             android:textSize="30sp" />
 
-        <ProgressBar
+        <com.SDP.signbits.TextProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="349dp"
             android:layout_height="91dp"
+            android:progressTint="#82CA75"
             android:scaleY="10" />
 
     </LinearLayout>
@@ -45,13 +47,15 @@
             android:id="@+id/textViewPB2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/QuizProgress"
             android:textSize="30sp" />
 
-        <ProgressBar
+        <com.SDP.signbits.TextProgressBar
             android:id="@+id/progressBar2"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="349dp"
             android:layout_height="91dp"
+            android:progressTint="#03A9F4"
             android:scaleY="10" />
 
     </LinearLayout>

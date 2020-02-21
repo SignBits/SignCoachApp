@@ -43,5 +43,7 @@
     <string name="Inputboxhint">Enter a character to check whether we support it!</string>
     <string name="dictionary">Full supported dictionary can be found the setting panel</string>
     <string name="HintTextF2C">Character Sequence the robot is fingerspelling</string>
+    <string name="learningProgress">Learning Progress</string>
+    <string name="QuizProgress">Quiz Challenge Progress</string>
 
 </resources>
