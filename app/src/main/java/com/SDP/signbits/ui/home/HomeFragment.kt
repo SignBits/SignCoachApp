@@ -19,6 +19,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
+import com.SDP.signbits.RPiHandler
+
 
 class HomeFragment : Fragment() {
 
@@ -66,6 +68,48 @@ class HomeFragment : Fragment() {
     }
 
 
+//    private fun populateDictionary(linearLayout: LinearLayout){
+//        val alphabet = 'A'..'Z'
+//
+//        alphabet.forEach {
+//            val btnTag = Button(activity)
+//            btnTag.layoutParams = LinearLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//            btnTag.textSize = 32.0f
+//            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
+//            btnTag.text = it.toString()
+//            btnTag.id = it.toInt()
+//            btnTag.setOnClickListener { _ -> RPIHandler.getInstance(this.requireContext())
+//                .sendFingerSpellRequest(
+//                    it.toString()
+//                )
+//            }
+//            linearLayout.addView(btnTag)
+//        }
+//    }
+
+    private fun populateDictionary(linearLayout: LinearLayout){
+        val alphabet = 'A'..'Z'
+
+        alphabet.forEach {
+            val btnTag = Button(activity)
+            btnTag.layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            btnTag.textSize = 32.0f
+            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            btnTag.text = it.toString()
+            btnTag.id = it.toInt()
+            btnTag.setOnClickListener { _ -> RPiHandler.getInstance(this.requireContext())
+                .postFingerSpellRequest(
+                    it.toString()
+                )
+            }
+            linearLayout.addView(btnTag)
+        }
     private fun robotFingerspell(charSequence : CharSequence){
         return
     }
