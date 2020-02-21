@@ -34,4 +34,11 @@
     <string name="C2F">Character To Fingerspell</string>
     <string name="F2C">Fingerspell To Character</string>
     <string name="quizpage">Quiz</string>
+
+    <!-- Home Page-->
+    <string name="Inputboxhint">Enter a character to check whether we support it!</string>
+    <string name="dictionary">Full supported dictionary can be found the setting panel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

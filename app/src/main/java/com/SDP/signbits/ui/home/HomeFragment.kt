@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.VolleySingleton
+import com.SDP.signbits.ui.setting.SettingFragment
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 
 class HomeFragment : Fragment() {
@@ -29,74 +32,50 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
 
-        val dictionaryScrollView: LinearLayout = root.findViewById(R.id.dictionaryScrollView)
 
-        populateDictionary(dictionaryScrollView)
+        //text check button
+        val inputBox : TextView = root.findViewById(R.id.inputBoxTextHome)
+        val inputbutton : Button = root.findViewById(R.id.inputButton_home)
+
+        inputbutton.setOnClickListener{
+            val inputchar : CharSequence = inputBox.editableText
+            if (inputchar.length > 1) snackBar("This is not a valid Character!")
+            else if (MainActivity.alphabet.contains(inputchar[0])){
+                snackBar("We do support this! The robot will perform it now!")
+                robotFingerspell(inputchar)
+            }
+            else {
+                snackBar("Sorry! We currently do not support this!")
+            }
+        }
+
+        val progressBar : ProgressBar = root.findViewById(R.id.progressBar)
+        progressBar.max = MainActivity.alphabet.count()
+        progressBar.progress = 15
+        val textViewpb1 : TextView = root.findViewById(R.id.textViewPB1)
+        textViewpb1.text = String.format("Your Learning Progress is %d", 15)
+
+        val progressBar2 : ProgressBar = root.findViewById(R.id.progressBar2)
+        progressBar2.max = 100
+        progressBar2.progress = 15
+        val textViewpb2 : TextView = root.findViewById(R.id.textViewPB2)
+        textViewpb2.text = String.format("Your Quiz Challenge Accuracy is %d", 15)
+
         return root
     }
 
 
-    private fun populateDictionary(linearLayout: LinearLayout){
-        val alphabet = 'A'..'Z'
-
-        alphabet.forEach {
-            val btnTag = Button(activity)
-            btnTag.layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            btnTag.textSize = 32.0f
-            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            btnTag.text = it.toString()
-            btnTag.id = it.toInt()
-            btnTag.setOnClickListener { _ -> sendFingerspellRequest(it)}
-            linearLayout.addView(btnTag)
-        }
+    private fun robotFingerspell(charSequence : CharSequence){
+        return
     }
 
-    private fun sendFingerspellRequest(char: Char){
-        val fingerspellEndpoint = "http://192.168.105.150:5000/api/fingerspell/"
 
-        val params: HashMap<String, String> = hashMapOf(
-            "characterSequence" to char.toString()
-        )
-
-        val jsonParams = JSONObject(params.toMap())
-
-        val request = object: JsonObjectRequest(
-            Method.POST,
-            fingerspellEndpoint,
-            jsonParams,
-            Response.Listener { response ->
-                // Process the json
-                try {
-                    println("Response: $response")
-                }catch (e:Exception){
-                    println("Exception: $e")
-                }
-
-            }, Response.ErrorListener{
-                // Error in request
-                println("Volley error: $it")
-            }){
-
-            override fun getHeaders(): HashMap<String, String>{
-                return hashMapOf("Content-Type" to "application/json")
-            }
-        }
-
-        // Volley request policy, only one time request to avoid duplicate transaction
-        request.retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
-            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
-            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        )
-
-        VolleySingleton.getInstance(this.requireContext()).addToRequestQueue(request)
+    private fun snackBar(text: CharSequence){
+        val duration = Snackbar.LENGTH_LONG
+        val snackbar = Snackbar.make(requireView(), text, duration)
+        snackbar.show()
     }
+
+
 }
