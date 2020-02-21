@@ -53,7 +53,11 @@ class QuizFragment : Fragment() {
      */
     private fun convertToAnotherFragment(fragment: Fragment){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        fragmentManger.beginTransaction().replace(this.id, fragment).commit()
+        val transaction = fragmentManger.beginTransaction().apply {
+            replace(this@QuizFragment.id, fragment)
+            addToBackStack(null)
+        }
+        transaction.commit()
 
     }
 }

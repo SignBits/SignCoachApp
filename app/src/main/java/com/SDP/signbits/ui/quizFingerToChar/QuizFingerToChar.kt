@@ -1,5 +1,6 @@
 package com.SDP.signbits.ui.quizFingerToChar
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import com.SDP.signbits.R
+import com.SDP.signbits.VolleySingleton
 import com.SDP.signbits.ui.quiz.QuizFragment
 
 
@@ -31,20 +31,26 @@ class QuizFingerToChar : Fragment() {
         viewModel = ViewModelProviders.of(this).get(QuizFingerToCharViewModel::class.java)
         val root = inflater.inflate(R.layout.quiz_finger_to_char_fragment, container, false)
 
-        val button : Button = root.findViewById(R.id.button3)
+        val button : Button = root.findViewById(R.id.buttonTopBar)
         button.setOnClickListener{
-            backToQuiz()
+            val fragmentManager : FragmentManager = requireFragmentManager()
+            fragmentManager.beginTransaction().remove(this).commit()
+        }
+
+        val buttonStart :Button = root.findViewById(R.id.buttonStart)
+        var isconcl = true
+        buttonStart.setOnClickListener(){
+            if (isconcl){
+                robotFingerSpell()
+                buttonStart.setTextColor(Color.RED)
+            }
         }
         return root
     }
 
-    /**
-     * This is the method to go back to the quiz fragment. Click on the Quiz text in Char2Finger Page
-     * will go back
-     */
-    private fun backToQuiz() {
-        val fragmentManager : FragmentManager = requireFragmentManager()
-        fragmentManager.beginTransaction().replace(this.id, QuizFragment()).commit()
+
+    private fun robotFingerSpell(){
+        return
     }
 
 
