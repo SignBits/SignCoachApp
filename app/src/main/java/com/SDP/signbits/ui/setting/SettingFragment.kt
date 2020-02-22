@@ -1,16 +1,15 @@
 package com.SDP.signbits.ui.setting
-
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
-
 import com.SDP.signbits.R
-import com.SDP.signbits.ui.quiz.QuizViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class SettingFragment : Fragment() {
 
@@ -21,6 +20,7 @@ class SettingFragment : Fragment() {
     private lateinit var settingsviewModel: SettingViewModel
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,24 +28,29 @@ class SettingFragment : Fragment() {
         settingsviewModel =
             ViewModelProviders.of(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
-        // These are the buttons in the quiz fragment view
-        val textupdates : TextView = root.findViewById(R.id.textView2)
-        val textsearchbot : TextView = root.findViewById(R.id.textView3)
-        val textcontactus : TextView = root.findViewById(R.id.textView4)
-        val textterms : TextView = root.findViewById(R.id.textView5)
-        val textcache : TextView = root.findViewById(R.id.textView6)
-        val textRpi : TextView = root.findViewById(R.id.textView7)
-//        textupdates.setOnClickListener{
-//            convertToAnotherFragment(SettingTerms.newInstance())
-//        }
+        val recyclerView : RecyclerView = root.findViewById(R.id.recyclerViewSetting)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
+        val recyclerarray = ArrayList<User>()
+        recyclerarray.add(User("Contact Us","Phone number:000"))
+        recyclerarray.add(User("Check for Updates", "Checked"))
 
+        val adapter = CustomAdapter(recyclerarray)
+        recyclerView.adapter = adapter
+//        val textcontactus : TextView = root.findViewById(R.id.textView4)
+//        val textterms : TextView = root.findViewById(R.id.textView5)
+//        textterms.setOnClickListener{
+//            convertToAnotherFragment(SettingTermFragment.newInstance())
+//        }
+//        textcontactus.setOnClickListener{
+//            convertToAnotherFragment(SettingContactFragment.newInstance())
+//        }
         return root
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
-        // TODO: Use the ViewModel
 
     }
     /**

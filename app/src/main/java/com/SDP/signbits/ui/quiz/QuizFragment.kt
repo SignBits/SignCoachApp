@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.SnackbarContentLayout
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import com.SDP.signbits.TextProgressBar
 
+
 class QuizFragment : Fragment() {
 
     private lateinit var quizViewModel: QuizViewModel

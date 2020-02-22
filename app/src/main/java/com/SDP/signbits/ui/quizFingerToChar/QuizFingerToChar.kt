@@ -16,6 +16,8 @@ import com.SDP.signbits.VolleySingleton
 import com.SDP.signbits.ui.quiz.QuizFragment
 
 
+
+
 class QuizFingerToChar : Fragment() {
 
     companion object {
