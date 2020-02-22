@@ -17,39 +17,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/buttonTopBar"
-            style="@android:style/Widget.Material.Button.Toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:shadowColor="#8BC34A"
-            android:text="@string/quizpage"
-            android:textColor="#3F51B5" />
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
             android:id="@+id/textViewTopBar"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="9"
             android:fontFamily="cursive"
             android:gravity="center"
             android:text="@string/TopBarTextF2C"
             android:textAlignment="center"
             android:textColor="#9C27B0"
             android:textSize="24sp" />
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewInstructionF2C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="32dp"
         android:text="@string/InstructionF2C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutTopBar" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="207dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toTopOf="@+id/LinearLayoutQuiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <LinearLayout
         android:id="@+id/LinearLayoutQuiz"
@@ -59,8 +68,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/buttonStart"

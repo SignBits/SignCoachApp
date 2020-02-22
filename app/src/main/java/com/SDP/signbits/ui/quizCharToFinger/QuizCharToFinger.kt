@@ -43,7 +43,8 @@ class QuizCharToFinger : Fragment() {
      */
     private fun backToQuiz() {
         val fragmentManager : FragmentManager = requireFragmentManager()
-        fragmentManager.beginTransaction().replace(this.id, QuizFragment()).commit()
+        fragmentManager.beginTransaction().remove(this).commit()
+        fragmentManager.popBackStack()
     }
 
 

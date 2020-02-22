@@ -3,6 +3,7 @@ package com.SDP.signbits
 import android.content.Context
 import android.os.Bundle
 import android.util.JsonReader
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -35,9 +36,23 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val file = File("learningProgress.json")
+        val file = File("learningProgress.txt")
         if (file.exists()){
             val input : InputStream = openFileInput(file.readText())
+            val bufferedReader = input.bufferedReader()
+            val stringBuilder = StringBuilder()
+            try{
+                var line = bufferedReader.readLine()
+                while (line != null){
+                    
+                }
+
+            } catch (e: IOException){
+                Log.d("IOError", e.message)
+            }
+            if (input!=null){
+
+            }
             val reader = JsonReader(InputStreamReader(input))
         }
         setupActionBarWithNavController(navController, appBarConfiguration)

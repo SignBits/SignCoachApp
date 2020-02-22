@@ -54,7 +54,9 @@ internal class TextProgressBar : ProgressBar {
     private fun initText() {
         myPaint.textAlign = Paint.Align.LEFT
         myPaint.color = Color.WHITE
-        myPaint.textScaleX *= 7
+        if (id == R.id.progressBar || id == R.id.progressBar2) myPaint.textScaleX *= 7
+        if (id == R.id.progressBar3 || id == R.id.progressBar4) myPaint.textScaleX = myPaint
+            .textScaleX *4 /5
     }
 
     private fun setText() {
@@ -65,7 +67,9 @@ internal class TextProgressBar : ProgressBar {
         val i = progress * 100 / this.max
         if (id == R.id.progressBar)
             text = "Learning Progress: $i%"
-        else
+        else if (id == R.id.progressBar2)
             text = "Quiz Accuracy: $i%"
+        else if (id == R.id.progressBar3 || id == R.id.progressBar4)
+            text = "$i%"
     }
 }

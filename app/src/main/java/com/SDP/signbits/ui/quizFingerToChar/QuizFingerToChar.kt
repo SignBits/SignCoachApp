@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import com.SDP.signbits.R
 import com.SDP.signbits.VolleySingleton
@@ -31,15 +33,18 @@ class QuizFingerToChar : Fragment() {
         viewModel = ViewModelProviders.of(this).get(QuizFingerToCharViewModel::class.java)
         val root = inflater.inflate(R.layout.quiz_finger_to_char_fragment, container, false)
 
-        val button : Button = root.findViewById(R.id.buttonTopBar)
+        val button : ImageButton = root.findViewById(R.id.imageButton3)
         button.setOnClickListener{
             val fragmentManager : FragmentManager = requireFragmentManager()
-            fragmentManager.beginTransaction().remove(this).commit()
+            fragmentManager.beginTransaction().apply {
+                remove(this@QuizFingerToChar)
+            }.commit()
+            fragmentManager.popBackStack()
         }
 
         val buttonStart :Button = root.findViewById(R.id.buttonStart)
         var isconcl = true
-        buttonStart.setOnClickListener(){
+        buttonStart.setOnClickListener{
             if (isconcl){
                 robotFingerSpell()
                 buttonStart.setTextColor(Color.RED)
