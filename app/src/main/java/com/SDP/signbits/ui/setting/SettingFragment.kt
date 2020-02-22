@@ -28,8 +28,8 @@ class SettingFragment : Fragment() {
         settingsviewModel =
             ViewModelProviders.of(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
-        val recyclerView = requireActivity().findViewById(R.id.recyclerView) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayout.VERTICAL,false)
+        val recyclerView : RecyclerView = requireActivity().findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         val recyclerarray = ArrayList<User>()
         recyclerarray.add(User("Contact Us","Phone number:000"))
         recyclerarray.add(User("Check for Updates", "Checked"))
