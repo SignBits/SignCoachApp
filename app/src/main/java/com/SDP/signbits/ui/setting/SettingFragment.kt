@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
 import com.SDP.signbits.R
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -28,8 +28,8 @@ class SettingFragment : Fragment() {
         settingsviewModel =
             ViewModelProviders.of(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
-        val recyclerView : RecyclerView = requireActivity().findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
+        val recyclerView : RecyclerView = root.findViewById(R.id.recyclerViewSetting)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
         val recyclerarray = ArrayList<User>()
         recyclerarray.add(User("Contact Us","Phone number:000"))
         recyclerarray.add(User("Check for Updates", "Checked"))
