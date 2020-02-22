@@ -5,13 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
- <androidx.recyclerview.widget.RecyclerView
-     android:id="@+id/recyclerViewSetting"
+
+ <ScrollView
      android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
+     android:layout_height="match_parent">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:padding="30dp"
+      android:layout_height="wrap_content"
+      android:orientation="vertical" >
+
+   <TextView
+       android:id="@+id/textView1"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/back"
+       android:text="Check for Updates" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:background="@drawable/back"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Search for Robot" />
+
+   <TextView
+       android:id="@+id/textView3"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:background="@drawable/back"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Contact Us" />
+
+   <TextView
+       android:id="@+id/textView4"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:background="@drawable/back"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Terms and Conditions" />
+
+   <TextView
+       android:id="@+id/textView5"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:background="@drawable/back"
+       android:layout_height="wrap_content"
+       android:text="Clear Cache" />
+
+   <TextView
+       android:id="@+id/textView6"
+       android:textSize="20sp"
+       android:textColor="@color/colorPrimaryDark"
+       android:background="@drawable/back"
+       android:layout_marginBottom="15sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Update RPi software(?)" />
+  </LinearLayout>
+ </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

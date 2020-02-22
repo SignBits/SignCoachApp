@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.SDP.signbits.R
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.SDP.signbits.ui.settingcontact.SettingContactFragment
+import com.SDP.signbits.ui.settingoptions.SettingTermFragment
 
 class SettingFragment : Fragment() {
 
@@ -28,22 +31,16 @@ class SettingFragment : Fragment() {
         settingsviewModel =
             ViewModelProviders.of(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
-        val recyclerView : RecyclerView = root.findViewById(R.id.recyclerViewSetting)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
-        val recyclerarray = ArrayList<User>()
-        recyclerarray.add(User("Contact Us","Phone number:000"))
-        recyclerarray.add(User("Check for Updates", "Checked"))
 
-        val adapter = CustomAdapter(recyclerarray)
-        recyclerView.adapter = adapter
-//        val textcontactus : TextView = root.findViewById(R.id.textView4)
-//        val textterms : TextView = root.findViewById(R.id.textView5)
-//        textterms.setOnClickListener{
-//            convertToAnotherFragment(SettingTermFragment.newInstance())
-//        }
-//        textcontactus.setOnClickListener{
-//            convertToAnotherFragment(SettingContactFragment.newInstance())
-//        }
+        val textcontactus : TextView = root.findViewById(R.id.textView3)
+        val textterms : TextView = root.findViewById(R.id.textView4)
+
+        textterms.setOnClickListener{
+            convertToAnotherFragment(SettingTermFragment.newInstance())
+        }
+        textcontactus.setOnClickListener{
+            convertToAnotherFragment(SettingContactFragment.newInstance())
+        }
         return root
     }
 
