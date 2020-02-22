@@ -20,6 +20,7 @@
             android:id="@+id/textViewPB1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="casual"
             android:text="@string/learningProgress"
             android:textSize="30sp" />
 

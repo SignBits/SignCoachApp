@@ -1,5 +1,6 @@
 package com.SDP.signbits.ui.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,13 +48,22 @@ class HomeFragment : Fragment() {
             }
         }
 
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
         val progressBar : TextProgressBar = root.findViewById(R.id.progressBar)
         progressBar.max = MainActivity.alphabet.count()
-        progressBar.progress = 15
+        progressBar.progress = pref.getInt("Learning", -1)
 
         val progressBar2 : TextProgressBar = root.findViewById(R.id.progressBar2)
         progressBar2.max = 100
-        progressBar2.progress = 25
+        val correct = 100 * (pref.getInt("F2CCorrect",0) + pref.getInt("C2FCorrect", 0))
+        val total = pref.getInt("F2CNumber", 0) + pref.getInt("C2FNumber", 0)
+        var acc : Int
+        if (total != 0) {
+            acc = correct / total
+        } else {
+            acc = 0
+        }
+        progressBar2.progress = acc
 
         return root
     }

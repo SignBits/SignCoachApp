@@ -1,6 +1,7 @@
 package com.SDP.signbits
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.JsonReader
 import android.util.Log
@@ -17,11 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         val alphabet = 'A'..'Z'
-        var learningProgress : HashMap<String, Int> = hashMapOf(
-            "learning progress" to 0,
-            "CharToFin quiz" to 0,
-            "FinToChar quiz" to 0
-        )
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,25 +32,19 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val file = File("learningProgress.txt")
-        if (file.exists()){
-            val input : InputStream = openFileInput(file.readText())
-            val bufferedReader = input.bufferedReader()
-            val stringBuilder = StringBuilder()
-            try{
-                var line = bufferedReader.readLine()
-                while (line != null){
-                    
-                }
-
-            } catch (e: IOException){
-                Log.d("IOError", e.message)
-            }
-            if (input!=null){
-
-            }
-            val reader = JsonReader(InputStreamReader(input))
-        }
+        val pref : SharedPreferences = applicationContext.getSharedPreferences("LearningProgress",0)
+        val editor = pref.edit()
+        if (pref.getInt("Learning", -1) == -1)
+            editor.putInt("Learning", 0)
+        if (pref.getInt("F2CNumber", -1) == -1)
+            editor.putInt("F2CNumber", 0)
+        if (pref.getInt("F2Correct", -1) == -1)
+            editor.putInt("F2CCorrect", 0)
+        if (pref.getInt("C2FNumber", -1) == -1)
+            editor.putInt("C2FNumber", 0)
+        if (pref.getInt("C2FCorrect", -1) == -1)
+            editor.putInt("C2FCorrect", 0)
+        editor.apply()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

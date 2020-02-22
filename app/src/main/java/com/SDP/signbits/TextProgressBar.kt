@@ -54,7 +54,11 @@ internal class TextProgressBar : ProgressBar {
     private fun initText() {
         myPaint.textAlign = Paint.Align.LEFT
         myPaint.color = Color.WHITE
-        if (id == R.id.progressBar || id == R.id.progressBar2) myPaint.textScaleX *= 7
+        if (id == R.id.progressBar || id == R.id.progressBar2) {
+            myPaint.textScaleX *= 7
+            val t = myPaint.textSize * 0.8
+            myPaint.textSize = t.toFloat()
+        }
         if (id == R.id.progressBar3 || id == R.id.progressBar4) myPaint.textScaleX = myPaint
             .textScaleX *4 /5
     }
