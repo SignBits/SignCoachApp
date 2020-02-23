@@ -1,7 +1,9 @@
 package com.SDP.signbits.ui.quizCharToFinger
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 
 import com.SDP.signbits.R
 import com.SDP.signbits.ui.quiz.QuizFragment
@@ -79,5 +80,14 @@ class QuizCharToFinger : Fragment() {
         fragmentManager.beginTransaction().replace(this.id, QuizFragment()).commit()
     }
 
+    private fun dispatchTakePictureIntent() {
+        val REQUEST_IMAGE_CAPTURE = 1
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+
+    }
 
 }

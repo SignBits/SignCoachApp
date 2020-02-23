@@ -48,6 +48,7 @@
             android:id="@+id/textViewPB2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="casual"
             android:text="@string/QuizProgress"
             android:textSize="30sp" />
 
@@ -73,10 +74,16 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputBoxTextHome"
-            android:layout_width="match_parent"
+            android:layout_width="388dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:gravity="center"
             android:hint="@string/Inputboxhint"
-            android:inputType="textCapCharacters" />
+            android:inputType="textCapCharacters"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/inputButton_home"
@@ -92,6 +99,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:contextClickable="true"
+            android:fontFamily="casual"
             android:text="@string/dictionary"
             android:textAlignment="textEnd" />
 

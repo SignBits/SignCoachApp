@@ -55,7 +55,7 @@ class QuizFingerToChar : Fragment() {
                 symbol = randomString()
                 Log.d("Learning Random String", symbol.toString())
                 RPiHandler.getInstance(requireContext()).postFingerSpellRequest(symbol)
-                buttonStart.setTextColor(Color.RED)
+//                buttonStart.setTextColor(Color.RED)
                 isconcl = false
                 snack(Prompt.SUCCESS, "Look at the SignBits!")
             } else {
@@ -84,7 +84,7 @@ class QuizFingerToChar : Fragment() {
                     text.editableText.clear()
                     symbol = ""
                     isconcl = true
-                    buttonStart.setTextColor(Color.BLACK)
+//                    buttonStart.setTextColor(Color.BLACK)
                 } else {
                     snack(Prompt.ERROR, "Wrong! The Correct one is $symbol")
                     text.editableText.clear()
@@ -98,7 +98,7 @@ class QuizFingerToChar : Fragment() {
             symbol = ""
             snack(Prompt.SUCCESS, "Moved to the Next Challenge!")
             isconcl = true
-            buttonStart.setTextColor(Color.BLACK)
+//            buttonStart.setTextColor(Color.BLACK)
         }
 
         return root

@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="9"
-            android:fontFamily="cursive"
+            android:fontFamily="casual"
             android:gravity="center"
             android:text="@string/TopBarTextF2C"
             android:textAlignment="center"
-            android:textColor="#9C27B0"
+            android:textColor="#03A9F4"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -44,7 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="casual"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="@string/InstructionF2C"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="Start" />
 
             <Button
@@ -87,15 +92,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="Hint" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/editTextF2C"
-            android:layout_width="match_parent"
+            android:layout_width="384dp"
             android:layout_height="wrap_content"
             android:autoText="false"
             android:ems="10"
+            android:fontFamily="casual"
             android:hint="@string/HintTextF2C"
             android:inputType="textCapSentences|textCapCharacters" />
 
@@ -110,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="Submit" />
 
             <Button
@@ -117,6 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="Next" />
         </LinearLayout>
 

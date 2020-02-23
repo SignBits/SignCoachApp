@@ -1,15 +1,12 @@
 package com.SDP.signbits
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.icu.util.Measure
-import android.icu.util.MeasureUnit
+import android.content.res.AssetManager
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.ProgressBar
+import com.SDP.signbits.R
 
 internal class TextProgressBar : ProgressBar {
     var text: String? = null
@@ -54,6 +51,7 @@ internal class TextProgressBar : ProgressBar {
     private fun initText() {
         myPaint.textAlign = Paint.Align.LEFT
         myPaint.color = Color.WHITE
+//        myPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/casual.ttf")
         if (id == R.id.progressBar || id == R.id.progressBar2) {
             myPaint.textScaleX *= 7
             val t = myPaint.textSize * 0.8

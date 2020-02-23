@@ -19,7 +19,7 @@ class LearnFragment : Fragment() {
     private lateinit var learnViewModel: LearnViewModel
 
     private var current_char = 0
-    val char_array: IntArray = intArrayOf(R.mipmap.ic_letter_b)
+    val char_array: IntArray = intArrayOf(R.mipmap.ic_letter_b, R.mipmap.ic_letter_b, R.mipmap.ic_letter_b)
 
     override fun onCreateView(
         inflater: LayoutInflater,

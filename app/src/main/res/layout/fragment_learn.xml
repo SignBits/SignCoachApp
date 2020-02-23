@@ -19,6 +19,7 @@
             android:id="@+id/button7"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:fontFamily="casual"
             android:text="Button" />
 
         <ImageView
@@ -40,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="fingerspell" />
 
             <Button
@@ -47,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="attempt" />
         </LinearLayout>
 
@@ -61,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="previous" />
 
             <Button
@@ -68,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="casual"
                 android:text="next" />
 
         </LinearLayout>

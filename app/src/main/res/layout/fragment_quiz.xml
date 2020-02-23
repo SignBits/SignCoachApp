@@ -23,9 +23,11 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="casual"
                 android:gravity="center"
                 android:text="@string/C2F"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -51,7 +53,11 @@
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -75,11 +81,13 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="casual"
                 android:gravity="center"
                 android:text="@string/F2C"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -104,8 +112,12 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
