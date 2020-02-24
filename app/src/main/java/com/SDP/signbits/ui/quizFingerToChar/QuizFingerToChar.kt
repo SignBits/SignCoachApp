@@ -1,6 +1,7 @@
 package com.SDP.signbits.ui.quizFingerToChar
 
 import android.app.VoiceInteractor
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -121,6 +122,11 @@ class QuizFingerToChar : Fragment() {
     private fun snack(prompt: Prompt, text: CharSequence){
         val duration = TSnackbar.LENGTH_SHORT
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
+    private fun correct(){
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+
     }
 
 

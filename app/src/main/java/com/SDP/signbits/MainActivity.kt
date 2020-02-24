@@ -2,9 +2,12 @@ package com.SDP.signbits
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.JsonReader
 import android.util.Log
+import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_learn, R.id.navigation_quiz, R.id.navigation_settings
             )
         )
+
 
         val pref : SharedPreferences = applicationContext.getSharedPreferences("LearningProgress",0)
         val editor = pref.edit()

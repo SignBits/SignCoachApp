@@ -38,7 +38,7 @@
 
             <Button
                 android:id="@+id/learn_fingerspell"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="casual"
@@ -46,7 +46,7 @@
 
             <Button
                 android:id="@+id/learn_attempt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="casual"
@@ -61,7 +61,7 @@
 
             <Button
                 android:id="@+id/learn_previous"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="casual"
@@ -69,7 +69,7 @@
 
             <Button
                 android:id="@+id/learn_next"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="casual"
