@@ -1,18 +1,24 @@
 package com.SDP.signbits.ui.setting
-import androidx.lifecycle.ViewModelProviders
+
+import android.content.res.AssetManager
+import android.graphics.Typeface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.ArrayAdapter
+import android.widget.PopupMenu
+import android.widget.Spinner
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.SDP.signbits.ui.settingcontact.SettingContactFragment
-import com.SDP.signbits.ui.settingoptions.SettingTermFragment
+import com.SDP.signbits.ui.settingTermsAndConditions.SettingTermFragment
+import com.trycatch.mysnackbar.Prompt
+import com.trycatch.mysnackbar.TSnackbar
+import kotlinx.android.synthetic.main.fragment_setting.*
+
 
 class SettingFragment : Fragment() {
 
@@ -32,15 +38,7 @@ class SettingFragment : Fragment() {
             ViewModelProviders.of(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
 
-        val textcontactus : TextView = root.findViewById(R.id.textView3)
-        val textterms : TextView = root.findViewById(R.id.textView4)
 
-        textterms.setOnClickListener{
-            convertToAnotherFragment(SettingTermFragment.newInstance())
-        }
-        textcontactus.setOnClickListener{
-            convertToAnotherFragment(SettingContactFragment.newInstance())
-        }
         return root
     }
 
@@ -49,16 +47,30 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
 
-    }
-    /**
-     * This is the method to convert to another fragment.
-     *
-     * @param fragment This is the fragment of the destination. Need to be a fragment object instead
-     *        of Fragment Id etc
-     */
-    private fun convertToAnotherFragment(fragment: Fragment){
-        val fragmentManger : FragmentManager = requireFragmentManager()
-        fragmentManger.beginTransaction().replace(this.id, fragment).commit()
+        setting5.setOnClickListener{
+            val menu = PopupMenu(context, it)
+            menu.inflate(R.menu.popup_menu)
+            menu.show()
+        }
 
     }
+
+    private fun check_for_update(view: View){
+        snack(Prompt.SUCCESS, "You have the latest version!")
+    }
+
+    private fun terms_and_conditions(view: View){
+        val fragmentManger : FragmentManager = requireFragmentManager()
+        val transaction = fragmentManger.beginTransaction().apply {
+            replace(this@SettingFragment.id, SettingTermFragment())
+            addToBackStack(null)
+        }
+        transaction.commit()
+    }
+
+    private fun snack(prompt: Prompt, text: CharSequence){
+        val duration = TSnackbar.LENGTH_SHORT
+        TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
 }

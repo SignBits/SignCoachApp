@@ -1,4 +1,4 @@
-package com.SDP.signbits.ui.settingoptions
+package com.SDP.signbits.ui.settingTermsAndConditions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.SDP.signbits.ui.settingoptions
+package com.SDP.signbits.ui.settingTermsAndConditions
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,15 +26,15 @@ class SettingTermFragment : Fragment() {
         settingstermviewModel =
             ViewModelProviders.of(this).get(SettingTermViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting_term, container, false)
-        val button : Button = root.findViewById(R.id.Button)
+        val button : Button = root.findViewById(R.id.backButtonTerm)
         button.setOnClickListener{
-            convertToAnotherFragment(SettingFragment.newInstance())
+            val fragmentManager : FragmentManager = requireFragmentManager()
+            fragmentManager.beginTransaction().apply {
+                remove(this@SettingTermFragment)
+            }.commit()
+            fragmentManager.popBackStack()
         }
 
-        val textView: TextView = root.findViewById(R.id.text_settingterm)
-        settingstermviewModel.text.observe(this, Observer {
-            textView.text = it
-        })
         return root
     }
     private fun convertToAnotherFragment(fragment: Fragment){

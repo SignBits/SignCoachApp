@@ -46,4 +46,14 @@
     <string name="learningProgress">Learning Progress</string>
     <string name="QuizProgress">Quiz Challenge Progress</string>
 
+
+    <!-- Setting Page -->
+    <string name="setting1">Check for for Update</string>
+    <string name="setting2">Search for Robot</string>
+    <string name="setting3">Clear Cache</string>
+    <string name="setting4">Terms and Conditions</string>
+    <string name="setting5">Contact Us</string>
+
+<!--    Terms and Conditions-->
+    <string name="term">Terms and Conditions</string>
 </resources>

@@ -5,76 +5,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+ <LinearLayout
+     android:id="@+id/setting_linear"
+     android:layout_width="0dp"
+     android:layout_height="0dp"
+     android:orientation="vertical"
+     android:paddingHorizontal="30dp"
+     android:paddingVertical="20dp"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent">
 
- <ScrollView
-     android:layout_width="match_parent"
-     android:layout_height="match_parent">
-  <LinearLayout
+  <View
+      android:id="@+id/divider6"
       android:layout_width="match_parent"
-      android:padding="30dp"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#00858585" />
+
+  <TextView
+      android:id="@+id/setting1"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical" >
+      android:layout_marginBottom="20dp"
+      android:fontFamily="casual"
+      android:text="@string/setting1"
+      android:textSize="24sp" />
 
-   <TextView
-       android:id="@+id/textView1"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:background="@drawable/back"
-       android:text="Check for Updates" />
+  <View
+      android:id="@+id/divider"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#00858585" />
 
-   <TextView
-       android:id="@+id/textView2"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:background="@drawable/back"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Search for Robot" />
+  <TextView
+      android:id="@+id/setting2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:fontFamily="casual"
+      android:text="@string/setting2"
+      android:textSize="24sp" />
 
-   <TextView
-       android:id="@+id/textView3"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:background="@drawable/back"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Contact Us" />
+  <View
+      android:id="@+id/divider3"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#23858585" />
 
-   <TextView
-       android:id="@+id/textView4"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:background="@drawable/back"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Terms and Conditions" />
+  <TextView
+      android:id="@+id/setting4"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:fontFamily="casual"
+      android:text="@string/setting4"
+      android:textSize="24sp" />
 
-   <TextView
-       android:id="@+id/textView5"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:background="@drawable/back"
-       android:layout_height="wrap_content"
-       android:text="Clear Cache" />
+  <View
+      android:id="@+id/divider4"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#23858585" />
 
-   <TextView
-       android:id="@+id/textView6"
-       android:textSize="20sp"
-       android:textColor="@color/colorPrimaryDark"
-       android:background="@drawable/back"
-       android:layout_marginBottom="15sp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Update RPi software(?)" />
-  </LinearLayout>
- </ScrollView>
+  <TextView
+      android:id="@+id/setting5"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:fontFamily="casual"
+      android:text="@string/setting5"
+      android:textSize="24sp" />
 
+  <View
+      android:id="@+id/divider7"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#00858585" />
+
+ </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
