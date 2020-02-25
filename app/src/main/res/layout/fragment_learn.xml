@@ -15,13 +15,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="casual"
-            android:text="Button" />
-
         <ImageView
             android:id="@+id/learn_image"
             android:layout_width="351dp"
