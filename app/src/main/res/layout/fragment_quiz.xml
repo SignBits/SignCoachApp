@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
                 android:visibility="visible"
-                app:srcCompat="@android:drawable/ic_notification_overlay" />
+                app:srcCompat="@mipmap/ic_quiz_c2f" />
 
             <com.SDP.signbits.TextProgressBar
                 android:id="@+id/progressBar3"
@@ -96,7 +96,7 @@
                 android:layout_gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                app:srcCompat="@android:drawable/ic_notification_overlay" />
+                app:srcCompat="@mipmap/ic_quiz_f2c" />
 
             <com.SDP.signbits.TextProgressBar
                 android:id="@+id/progressBar4"

@@ -51,19 +51,21 @@ class HomeFragment : Fragment() {
         val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
         val progressBar : TextProgressBar = root.findViewById(R.id.progressBar)
         progressBar.max = MainActivity.alphabet.count()
-        progressBar.progress = pref.getInt("Learning", -1)
-
+//        progressBar.progress = pref.getInt("Learning", -1)
+        progressBar.progress = 13
         val progressBar2 : TextProgressBar = root.findViewById(R.id.progressBar2)
         progressBar2.max = 100
-        val correct = 100 * (pref.getInt("F2CCorrect",0) + pref.getInt("C2FCorrect", 0))
-        val total = pref.getInt("F2CNumber", 0) + pref.getInt("C2FNumber", 0)
+//        val correct = 100 * (pref.getInt("F2CCorrect",0) + pref.getInt("C2FCorrect", 0))
+        val correct = 1
+//        val total = pref.getInt("F2CNumber", 0) + pref.getInt("C2FNumber", 0)
+        val total = 2
         var acc : Int
         if (total != 0) {
             acc = correct / total
         } else {
             acc = 0
         }
-        progressBar2.progress = acc
+        progressBar2.progress = 50
 
         return root
     }
