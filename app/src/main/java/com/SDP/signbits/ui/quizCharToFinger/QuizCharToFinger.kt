@@ -1,30 +1,24 @@
 package com.SDP.signbits.ui.quizCharToFinger
 
-import android.content.Intent
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
-import com.SDP.signbits.MainActivity
 
 import com.SDP.signbits.R
-import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.ui.quiz.QuizFragment
+import com.SDP.signbits.ui.setting.SettingViewModel
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
-import java.lang.Math.random
-import java.lang.StringBuilder
+import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.quiz_char_to_finger_fragment_new.*
 
 class QuizCharToFinger : Fragment() {
 
@@ -60,10 +54,7 @@ class QuizCharToFinger : Fragment() {
         val userInfo = this.activity?.getSharedPreferences("data", 0)
         current_char = userInfo!!.getInt("quiz", 0)
 
-        val button: LinearLayout = root.findViewById(R.id.quiz_btn_back)
-        button.setOnClickListener {
-            backToQuiz()
-        }
+
 
         val button_start: Button = root.findViewById(R.id.button)
 
@@ -100,6 +91,16 @@ class QuizCharToFinger : Fragment() {
         }
 
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(QuizCharToFingerViewModel::class.java)
+
+        imageButtonC2F.setOnClickListener {
+            backToQuiz()
+        }
+
     }
 
     /**

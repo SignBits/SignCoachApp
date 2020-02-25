@@ -34,6 +34,8 @@
     <string name="C2F">Character To Fingerspell</string>
     <string name="F2C">Fingerspell To Character</string>
 
+    <!-- Quiz c2F page   <-->
+    <string name="TopBarTextC2F">Character to Fingerspell Quiz</string>
     <!-- Quiz F2C page-->
     <string name="quizpage">Back</string>
     <string name="TopBarTextF2C">Fingerspell to Character Quiz</string>

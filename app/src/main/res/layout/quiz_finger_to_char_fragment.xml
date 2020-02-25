@@ -30,10 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="9"
-            android:fontFamily="casual"
-            android:gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
             android:text="@string/TopBarTextF2C"
-            android:textAlignment="center"
             android:textColor="#03A9F4"
             android:textSize="24sp" />
 

@@ -1,5 +1,6 @@
 package com.SDP.signbits.ui.quiz
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +34,11 @@ class QuizFragment : Fragment() {
         val buttonC2F : CardView = root.findViewById(R.id.cardC2F)
         val buttonF2C : CardView = root.findViewById(R.id.cardF2C)
 
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
         val pbC2F : TextProgressBar = root.findViewById(R.id.progressBar3)
-        pbC2F.max = MainActivity.alphabet.count()
-        pbC2F.progress = 15
+        pbC2F.max = pref.getInt("C2FNumber", 1)
+        if (pbC2F.max == 0) pbC2F.max =1
+        pbC2F.progress = pref.getInt("C2FCorrect", -1)
 
 
         val textView : TextView = root.findViewById(R.id.textView12)
@@ -43,8 +46,9 @@ class QuizFragment : Fragment() {
                 "quizzes with accuracy of ${pbC2F.progress * 100 /pbC2F.max}"
 
         val pbF2C : TextProgressBar = root.findViewById(R.id.progressBar4)
-        pbF2C.max = 100
-        pbF2C.progress = 15
+        pbF2C.max = pref.getInt("F2CNumber", 1)
+        if (pbF2C.max == 0) pbF2C.max = 1
+        pbF2C.progress = pref.getInt("F2CCorrect", -1)
 
         val textView2 : TextView = root.findViewById(R.id.textView14)
         textView2.text = "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
