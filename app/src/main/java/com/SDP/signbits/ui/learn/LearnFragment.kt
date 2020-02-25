@@ -50,10 +50,13 @@ class LearnFragment : Fragment() {
         }
 
         button_next.setOnClickListener{
-            if(current_char<25)
+            if(current_char<char_array.size-1) {
                 image.setImageResource(char_array[++current_char])
-                snack(Prompt.SUCCESS,  "Moved to the Next Letter")
-
+                snack(Prompt.SUCCESS, "Moved to the Next Letter")
+            } else {
+                snack(Prompt.WARNING, "You have done all the challenges")
+                current_char = 0
+            }
         }
 
         var iscon =true
