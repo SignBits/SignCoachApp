@@ -69,7 +69,7 @@ class QuizCharToFinger : Fragment() {
         val button_wrong: Button = root.findViewById(R.id.btn_quiz_wrong)
 
         val button_next: Button = root.findViewById(R.id.button)
-
+        val isconl=true
 
         var text_complete: TextView = root.findViewById(R.id.quiz_complete)
         var text_accuracy: TextView = root.findViewById(R.id.quiz_accuracy)
@@ -83,22 +83,24 @@ class QuizCharToFinger : Fragment() {
         text_complete.text = (current_char).toString() + " of 26 tasks are completed"
 
         button_right.setOnClickListener {
-            if (current_char < 25) {
+        if(isconl){
+                snack(Prompt.SUCCESS, "Correct!\n" + "Moved to the Next Challenge")
                 image.setImageResource(char_array[++current_char])
                 text_complete.text = current_char.toString() + " of 26 tasks are completed"
-            } else {
-                text_complete.text = "26 of 26 tasks are completed"
-                current_char = 26
-            }
+            }else{
+                snack(Prompt.ERROR, "Please start!")
+        }
         }
 
         button_wrong.setOnClickListener {
-
+            snack(Prompt.ERROR, "Wrong! Please look at the robot")
+            FingerSpell()
         }
 
         button_next.setOnClickListener {
             if (current_char < 25) {
                 image.setImageResource(char_array[++current_char])
+                snack(Prompt.SUCCESS,  "Moved to the Next Challenge")
             }
         }
 
@@ -126,6 +128,10 @@ class QuizCharToFinger : Fragment() {
     private fun snack(prompt: Prompt, text: CharSequence) {
         val duration = TSnackbar.LENGTH_SHORT
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
+    private fun FingerSpell(){
+        return
     }
 
     private fun dispatchTakePictureIntent() {

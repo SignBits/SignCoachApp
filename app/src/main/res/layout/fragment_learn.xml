@@ -19,7 +19,9 @@
             android:id="@+id/button7"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:backgroundTint="#977BDEF1"
+            android:text="Learning"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/learn_image"
