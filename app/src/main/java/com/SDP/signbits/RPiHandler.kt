@@ -24,7 +24,7 @@ class RPiHandler constructor(private val context: Context) {
      * This is the variable of the endpoint of the device. in the format
      * of "http://{ip-address}:{port}". By default it is the testing ip of our pikachu!
      */
-    var endPoint: String = "http://129.215.3.127:5000"
+    var endPoint: String = "http://192.168.105.150:5000"
     /**
      * This is the getInstance method of the singleton class.
      */
