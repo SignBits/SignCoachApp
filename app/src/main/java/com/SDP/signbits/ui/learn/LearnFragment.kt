@@ -19,7 +19,8 @@ class LearnFragment : Fragment() {
     private lateinit var learnViewModel: LearnViewModel
 
     private var current_char = 0
-    val char_array: IntArray = intArrayOf(R.mipmap.ic_letter_b)
+    val char_array: IntArray = intArrayOf(R.mipmap.ic_char_a,R.mipmap.ic_letter_b,R.mipmap
+        .ic_char_c,R.mipmap.ic_char_d,R.mipmap.ic_char_e,R.mipmap.ic_char_f,R.mipmap.ic_char_j)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,5 +68,12 @@ class LearnFragment : Fragment() {
 
     private fun FingerSpell(){
         return
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val userInfo = this.activity?.getSharedPreferences("data", 0)
+        userInfo?.edit()?.putInt("learn", current_char)?.commit()
     }
 }
