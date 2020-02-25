@@ -60,6 +60,13 @@ class QuizCharToFinger : Fragment() {
         val userInfo = this.activity?.getSharedPreferences("data", 0)
         current_char = userInfo!!.getInt("quiz", 0)
 
+        for (j in 0 until char_array.size-1){
+            val index =(Math.random()* (char_array.size-1)).toInt()
+            val temp = char_array[j]
+            char_array[j] = char_array[index]
+            char_array[index] =temp
+        }
+
         val button: LinearLayout = root.findViewById(R.id.quiz_btn_back)
         button.setOnClickListener {
             backToQuiz()
