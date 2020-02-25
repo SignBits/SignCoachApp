@@ -6,12 +6,54 @@
     android:layout_gravity="center"
     android:gravity="center">
 
-    <Button
-        android:id="@+id/Button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:text="@string/quizpage" />
+        android:layout_gravity="left"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/quiz_btn_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/Button"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.2"
+                android:background="@drawable/ic_arrow_back_black_24dp"
+                android:gravity="center_horizontal"
+                android:text="" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:backgroundTint="#967BDEF1"
+                android:text="Character to Fingerspell Quiz" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="35sp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.5"
+                android:gravity="center_horizontal"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -28,7 +70,7 @@
             android:padding="25sp">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/quiz_accuracy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Accuracy 80%"
@@ -37,32 +79,20 @@
             <TextView
                 android:id="@+id/quiz_complete"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="0 of 26 tasks are completed"
                 android:textSize="20sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.8" />
-
     <ImageView
         android:id="@+id/quiz_image"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="196dp"
+        android:layout_height="224dp"
         android:layout_weight="1.5"
-        app:srcCompat="@mipmap/ic_letter_b" />
+        app:srcCompat="@mipmap/ic_char_k" />
 
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,46 +100,21 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <View
-            android:id="@+id/view5"
+        <Button
+            android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="Start" />
 
         <Button
-            android:id="@+id/btn_quiz_wrong"
+            android:id="@+id/button4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/ic_close_black_24dp" />
+            android:text="Next" />
 
-        <View
-            android:id="@+id/view6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btn_quiz_right"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/ic_check_black_24dp" />
-
-        <View
-            android:id="@+id/view7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next" />
 
 </LinearLayout>

@@ -13,13 +13,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
 import android.graphics.Color;
 import com.SDP.signbits.ui.quizCharToFinger.QuizCharToFinger
+import com.trycatch.mysnackbar.Prompt
+import com.trycatch.mysnackbar.TSnackbar
 
 class LearnFragment : Fragment() {
 
     private lateinit var learnViewModel: LearnViewModel
 
     private var current_char = 0
-    val char_array: IntArray = intArrayOf(R.mipmap.ic_letter_b, R.mipmap.ic_letter_b, R.mipmap.ic_letter_b)
+    val char_array: IntArray = intArrayOf(R.mipmap.ic_char_a,R.mipmap.ic_letter_b,R.mipmap
+        .ic_char_c,R.mipmap.ic_char_d,R.mipmap.ic_char_e,R.mipmap.ic_char_f,R.mipmap.ic_char_j)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,17 +40,19 @@ class LearnFragment : Fragment() {
         val button_previous : Button = root.findViewById(R.id.learn_previous)
         val button_next : Button = root.findViewById(R.id.learn_next)
         val button_finger :Button = root.findViewById(R.id.learn_fingerspell)
-
+        val button_attampt :Button = root.findViewById(R.id.learn_attempt)
         val image : ImageView = root.findViewById(R.id.learn_image)
         image.setImageResource(char_array[current_char])
         button_previous.setOnClickListener{
             if(current_char>0)
                 image.setImageResource(char_array[--current_char])
+                snack(Prompt.SUCCESS,  "Moved to the Last Letter")
         }
 
         button_next.setOnClickListener{
             if(current_char<25)
                 image.setImageResource(char_array[++current_char])
+                snack(Prompt.SUCCESS,  "Moved to the Next Letter")
 
         }
 
@@ -55,8 +60,11 @@ class LearnFragment : Fragment() {
         button_finger.setOnClickListener{
             if(iscon){
                 FingerSpell()
-                button_finger.setTextColor(Color.RED)
+                button_finger.setTextColor(Color.GREEN)
             }
+
+
+        button_attampt.setOnClickListener{}
 
 
         }
@@ -67,5 +75,16 @@ class LearnFragment : Fragment() {
 
     private fun FingerSpell(){
         return
+    }
+    private fun snack(prompt: Prompt, text: CharSequence) {
+        val duration = TSnackbar.LENGTH_SHORT
+        TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val userInfo = this.activity?.getSharedPreferences("data", 0)
+        userInfo?.edit()?.putInt("learn", current_char)?.commit()
     }
 }
