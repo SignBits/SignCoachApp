@@ -65,10 +65,10 @@ class QuizCharToFinger : Fragment() {
             backToQuiz()
         }
 
-        val button_right: Button = root.findViewById(R.id.btn_quiz_right)
-        val button_wrong: Button = root.findViewById(R.id.btn_quiz_wrong)
+        val button_start: Button = root.findViewById(R.id.button)
 
-        val button_next: Button = root.findViewById(R.id.button)
+
+        val button_next: Button = root.findViewById(R.id.button4)
         val isconl=true
 
         var text_complete: TextView = root.findViewById(R.id.quiz_complete)
@@ -76,35 +76,28 @@ class QuizCharToFinger : Fragment() {
 
         val image: ImageView = root.findViewById(R.id.quiz_image)
         image.setImageResource(char_array[current_char])
-        button_wrong.setOnClickListener {
-            text_accuracy.text = "Accuracy 80%"
-        }
 
         text_complete.text = (current_char).toString() + " of 26 tasks are completed"
 
-        button_right.setOnClickListener {
+        button_start.setOnClickListener {
         if(isconl){
                 snack(Prompt.SUCCESS, "Correct!\n" + "Moved to the Next Challenge")
                 image.setImageResource(char_array[++current_char])
                 text_complete.text = current_char.toString() + " of 26 tasks are completed"
             }else{
-                snack(Prompt.ERROR, "Please start!")
+                snack(Prompt.ERROR, "Wrong! Please look at the robot")
+                text_accuracy.text = "Accuracy 80%"
+                FingerSpell()
         }
         }
 
-        button_wrong.setOnClickListener {
-            snack(Prompt.ERROR, "Wrong! Please look at the robot")
-            FingerSpell()
-        }
 
         button_next.setOnClickListener {
             if (current_char < 25) {
                 image.setImageResource(char_array[++current_char])
-                snack(Prompt.SUCCESS,  "Moved to the Next Challenge")
+                snack(Prompt.ERROR,  "Moved to the Next Challenge")
             }
         }
-
-
 
         return root
     }
