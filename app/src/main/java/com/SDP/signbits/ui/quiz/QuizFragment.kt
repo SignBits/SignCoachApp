@@ -1,22 +1,21 @@
 package com.SDP.signbits.ui.quiz
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.ui.quizCharToFinger.QuizCharToFinger
 import com.SDP.signbits.ui.quizFingerToChar.QuizFingerToChar
-import com.google.android.material.snackbar.SnackbarContentLayout
-import kotlinx.android.synthetic.main.fragment_quiz.*
+import com.SDP.signbits.TextProgressBar
+
 
 class QuizFragment : Fragment() {
 
@@ -32,8 +31,28 @@ class QuizFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_quiz, container, false)
 
         // These are the buttons in the quiz fragment view
-        val buttonC2F : Button = root.findViewById(R.id.button)
-        val buttonF2C : Button = root.findViewById(R.id.button2)
+        val buttonC2F : CardView = root.findViewById(R.id.cardC2F)
+        val buttonF2C : CardView = root.findViewById(R.id.cardF2C)
+
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val pbC2F : TextProgressBar = root.findViewById(R.id.progressBar3)
+        pbC2F.max = pref.getInt("C2FNumber", 1)
+        if (pbC2F.max == 0) pbC2F.max =1
+        pbC2F.progress = pref.getInt("C2FCorrect", -1)
+
+
+        val textView : TextView = root.findViewById(R.id.textView12)
+        textView.text = "You have done ${pbC2F.progress} Character to Fingerspell " +
+                "quizzes with accuracy of ${pbC2F.progress * 100 /pbC2F.max}"
+
+        val pbF2C : TextProgressBar = root.findViewById(R.id.progressBar4)
+        pbF2C.max = pref.getInt("F2CNumber", 1)
+        if (pbF2C.max == 0) pbF2C.max = 1
+        pbF2C.progress = pref.getInt("F2CCorrect", -1)
+
+        val textView2 : TextView = root.findViewById(R.id.textView14)
+        textView2.text = "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
+                "accuracy of ${pbF2C.progress*100/pbF2C.max}%"
 
         buttonC2F.setOnClickListener{
             convertToAnotherFragment(QuizCharToFinger.newInstance())
@@ -53,7 +72,11 @@ class QuizFragment : Fragment() {
      */
     private fun convertToAnotherFragment(fragment: Fragment){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        fragmentManger.beginTransaction().replace(this.id, fragment).commit()
+        val transaction = fragmentManger.beginTransaction().apply {
+            replace(this@QuizFragment.id, fragment)
+            addToBackStack(null)
+        }
+        transaction.commit()
 
     }
 }

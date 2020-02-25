@@ -1,17 +1,20 @@
 package com.SDP.signbits.ui.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.RPiHandler
+import com.SDP.signbits.TextProgressBar
+import com.trycatch.mysnackbar.TSnackbar
+import com.trycatch.mysnackbar.Prompt
 
 
 class HomeFragment : Fragment() {
@@ -26,60 +29,58 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
 
-        val dictionaryScrollView: LinearLayout = root.findViewById(R.id.dictionaryScrollView)
 
-        populateDictionary(dictionaryScrollView)
+        //text check button
+        val inputBox : TextView = root.findViewById(R.id.inputBoxTextHome)
+        val inputbutton : Button = root.findViewById(R.id.inputButton_home)
+
+        inputbutton.setOnClickListener{
+            val inputchar : CharSequence = inputBox.editableText
+            if (inputchar.length == 0) snack(Prompt.ERROR,"Please input something!")
+            else if (inputchar.length > 1) snack(Prompt.ERROR,"This is not a valid Character!")
+            else if (MainActivity.alphabet.contains(inputchar[0])){
+                snack(Prompt.SUCCESS,"We do support this! The robot will perform it now!")
+                robotFingerspell(inputchar)
+            }
+            else {
+                snack(Prompt.WARNING,"Sorry! We currently do not support this!")
+            }
+        }
+
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val progressBar : TextProgressBar = root.findViewById(R.id.progressBar)
+        progressBar.max = MainActivity.alphabet.count()
+//        progressBar.progress = pref.getInt("Learning", -1)
+        progressBar.progress = 13
+        val progressBar2 : TextProgressBar = root.findViewById(R.id.progressBar2)
+        progressBar2.max = 100
+//        val correct = 100 * (pref.getInt("F2CCorrect",0) + pref.getInt("C2FCorrect", 0))
+        val correct = 1
+//        val total = pref.getInt("F2CNumber", 0) + pref.getInt("C2FNumber", 0)
+        val total = 2
+        var acc : Int
+        if (total != 0) {
+            acc = correct / total
+        } else {
+            acc = 0
+        }
+        progressBar2.progress = 50
+
         return root
     }
 
 
-//    private fun populateDictionary(linearLayout: LinearLayout){
-//        val alphabet = 'A'..'Z'
-//
-//        alphabet.forEach {
-//            val btnTag = Button(activity)
-//            btnTag.layoutParams = LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.MATCH_PARENT
-//            )
-//            btnTag.textSize = 32.0f
-//            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
-//            btnTag.text = it.toString()
-//            btnTag.id = it.toInt()
-//            btnTag.setOnClickListener { _ -> RPIHandler.getInstance(this.requireContext())
-//                .sendFingerSpellRequest(
-//                    it.toString()
-//                )
-//            }
-//            linearLayout.addView(btnTag)
-//        }
-//    }
 
-    private fun populateDictionary(linearLayout: LinearLayout){
-        val alphabet = 'A'..'Z'
 
-        alphabet.forEach {
-            val btnTag = Button(activity)
-            btnTag.layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            btnTag.textSize = 32.0f
-            btnTag.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            btnTag.text = it.toString()
-            btnTag.id = it.toInt()
-            btnTag.setOnClickListener { _ -> RPiHandler.getInstance(this.requireContext())
-                .postFingerSpellRequest(
-                    it.toString()
-                )
-            }
-            linearLayout.addView(btnTag)
-        }
+    private fun robotFingerspell(charSequence : CharSequence){
+        RPiHandler.getInstance(requireContext()).postFingerSpellRequest(charSequence)
+    }
+
+
+    private fun snack(prompt: Prompt, text: CharSequence){
+        val duration = TSnackbar.LENGTH_SHORT
+        TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
     }
 
 
