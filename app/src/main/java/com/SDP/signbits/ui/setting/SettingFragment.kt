@@ -1,15 +1,11 @@
 package com.SDP.signbits.ui.setting
 
-import android.content.res.AssetManager
-import android.graphics.Typeface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.PopupMenu
-import android.widget.Spinner
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
@@ -47,19 +43,40 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
 
-        setting5.setOnClickListener{
+        settingContact.setOnClickListener {
             val menu = PopupMenu(context, it)
             menu.inflate(R.menu.popup_menu)
             menu.show()
         }
 
+        settingTC.setOnClickListener {
+            terms_and_conditions()
+        }
+
+        settingUpdate.setOnClickListener(){
+            check_for_update()
+        }
+
+        settingClearProgress.setOnClickListener(){
+            clearPref()
+        }
+
     }
 
-    private fun check_for_update(view: View){
+    private fun clearPref(){
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val editor = pref.edit()
+        for (i in arrayListOf("Learning", "F2CNumber", "C2FNumber", "F2CCorrect", "C2FCorrect")){
+            editor.putInt(i, 0).apply()
+        }
+        snack(Prompt.SUCCESS, "Clear Succeeded!")
+    }
+
+    private fun check_for_update() {
         snack(Prompt.SUCCESS, "You have the latest version!")
     }
 
-    private fun terms_and_conditions(view: View){
+    private fun terms_and_conditions(){
         val fragmentManger : FragmentManager = requireFragmentManager()
         val transaction = fragmentManger.beginTransaction().apply {
             replace(this@SettingFragment.id, SettingTermFragment())

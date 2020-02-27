@@ -39,15 +39,32 @@ class QuizCharToFinger : Fragment() {
     val char_array: IntArray = intArrayOf(
         R.mipmap.ic_char_a,
         R.mipmap.ic_letter_b,
-        R.mipmap
-            .ic_char_c,
+        R.mipmap.ic_char_c,
         R.mipmap.ic_char_d,
         R.mipmap.ic_char_e,
         R.mipmap.ic_char_f,
         R.mipmap.ic_char_g,
-        R
-            .mipmap.ic_char_j
+        R.mipmap.ic_char_j,
+        R.mipmap.ic_char_a,
+        R.mipmap.ic_letter_b,
+        R.mipmap.ic_char_c,
+        R.mipmap.ic_char_d,
+        R.mipmap.ic_char_e,
+        R.mipmap.ic_char_f,
+        R.mipmap.ic_char_g,
+        R.mipmap.ic_char_j,
+        R.mipmap.ic_char_a,
+        R.mipmap.ic_letter_b,
+        R.mipmap.ic_char_c,
+        R.mipmap.ic_char_d,
+        R.mipmap.ic_char_e,
+        R.mipmap.ic_char_f,
+        R.mipmap.ic_char_g,
+        R.mipmap.ic_char_j,
+        R.mipmap.ic_char_g,
+        R.mipmap.ic_char_j
     )
+
     // last img for finish
 
 
@@ -75,35 +92,39 @@ class QuizCharToFinger : Fragment() {
         val button_next: Button = root.findViewById(R.id.button4)
         val isconl=true
 
-        var text_complete: TextView = root.findViewById(R.id.quiz_complete)
-        var text_accuracy: TextView = root.findViewById(R.id.quiz_accuracy)
+        val text_complete: TextView = root.findViewById(R.id.quiz_complete)
+        val text_accuracy: TextView = root.findViewById(R.id.quiz_accuracy)
 
         val image: ImageView = root.findViewById(R.id.quiz_image)
-        image.setImageResource(char_array[current_char])
+        image.setImageResource(char_array[current_char % char_array.size])
 
         text_complete.text = (current_char).toString() + " of ${MainActivity.alphabet.count()} tasks " +
         "are completed"
 
         button_start.setOnClickListener {
-        if(isconl){
-                snack(Prompt.SUCCESS, "Correct!\n" + "Moved to the Next Challenge")
-                image.setImageResource(char_array[++current_char])
-                text_complete.text = current_char.toString() + " of 26 tasks are completed"
-                userInfo.edit().putInt("C2FCorrect", userInfo.getInt("C2FCorrect", 0)+1)
-            }else{
-                snack(Prompt.ERROR, "Wrong! Please look at the robot")
-                val corr = userInfo.getInt("C2FCorrect", 0)
-                var total = userInfo.getInt("C2FNumber", 1)
-                if (total == 0) total=1
-                text_accuracy.text = "Accuracy ${corr * 100 / total}%"
-                FingerSpell()
-        }
+            userInfo.edit().putInt("C2FNumber", userInfo.getInt("C2FNumber",0)+1).apply()
+            if(isconl){
+                    snack(Prompt.SUCCESS, "Correct!\n" + "Moved to the Next Challenge")
+                    current_char = (current_char + 1) % char_array.size
+                    image.setImageResource(char_array[current_char])
+                    text_complete.text = "$current_char of 26 tasks are completed"
+                    userInfo.edit().putInt("C2FCorrect", userInfo.getInt("C2FCorrect", 0)+1).apply()
+                }else{
+                    snack(Prompt.ERROR, "Wrong! Please look at the robot")
+                    val corr = userInfo.getInt("C2FCorrect", 0)
+                    var total = userInfo.getInt("C2FNumber", 1)
+                    if (total == 0) total=1
+                    text_accuracy.text = "Accuracy ${corr * 100 / total}%"
+                    FingerSpell()
+            }
         }
 
 
         button_next.setOnClickListener {
+            userInfo.edit().putInt("C2FNumber", userInfo.getInt("C2FNumber",0)+1).apply()
             if (current_char < char_array.size -1) {
-                image.setImageResource(char_array[++current_char])
+                current_char = (current_char + 1) % char_array.size
+                image.setImageResource(char_array[current_char])
                 snack(Prompt.ERROR,  "Moved to the Next Challenge")
             } else {
                 snack(Prompt.WARNING,  "You have tried all the challenges!")
@@ -123,6 +144,7 @@ class QuizCharToFinger : Fragment() {
         }
 
     }
+
 
     /**
      * This is the method to go back to the quiz fragment. Click on the Quiz text in Char2Finger Page

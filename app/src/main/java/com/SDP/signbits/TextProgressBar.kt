@@ -44,14 +44,12 @@ internal class TextProgressBar : ProgressBar {
         myPaint.getTextBounds(text, 0, text!!.length, rect)
         val x = width / 2 - rect.centerX()
         val y = height / 2 - rect.centerY()
-        Log.d("DrawBox", "x and y are $x,$y")
         canvas.drawText(text!!, x.toFloat(), y.toFloat(), myPaint)
     }
 
     private fun initText() {
         myPaint.textAlign = Paint.Align.LEFT
         myPaint.color = Color.WHITE
-//        myPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/casual.ttf")
         if (id == R.id.progressBar || id == R.id.progressBar2) {
             myPaint.textScaleX *= 7
             val t = myPaint.textSize * 0.8

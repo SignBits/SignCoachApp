@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     companion object{
         val alphabet = 'A'..'Z'
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,10 +35,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_learn, R.id.navigation_quiz, R.id.navigation_settings
             )
         )
-
-
         val pref : SharedPreferences = applicationContext.getSharedPreferences("LearningProgress",0)
         val editor = pref.edit()
+
         if (pref.getInt("Learning", -1) == -1)
             editor.putInt("Learning", 0)
         if (pref.getInt("F2CNumber", -1) == -1)
@@ -51,8 +51,6 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
     }
 
 

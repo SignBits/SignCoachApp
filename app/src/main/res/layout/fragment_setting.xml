@@ -25,7 +25,7 @@
       android:foregroundTint="#00858585" />
 
   <TextView
-      android:id="@+id/setting1"
+      android:id="@+id/settingUpdate"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="20dp"
@@ -41,7 +41,7 @@
       android:foregroundTint="#00858585" />
 
   <TextView
-      android:id="@+id/setting2"
+      android:id="@+id/settingSearch"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="20dp"
@@ -57,7 +57,23 @@
       android:foregroundTint="#23858585" />
 
   <TextView
-      android:id="@+id/setting4"
+      android:id="@+id/settingClearProgress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:fontFamily="casual"
+      android:text="@string/setting6"
+      android:textSize="24sp" />
+
+  <View
+      android:id="@+id/divider2"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:foregroundTint="#23858585" />
+
+  <TextView
+      android:id="@+id/settingTC"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="20dp"
@@ -73,7 +89,7 @@
       android:foregroundTint="#23858585" />
 
   <TextView
-      android:id="@+id/setting5"
+      android:id="@+id/settingContact"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="20dp"

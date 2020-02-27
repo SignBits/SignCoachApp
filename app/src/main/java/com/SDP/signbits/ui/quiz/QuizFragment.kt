@@ -64,6 +64,28 @@ class QuizFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val pbC2F : TextProgressBar = requireActivity().findViewById(R.id.progressBar3)
+        pbC2F.max = pref.getInt("C2FNumber", 1)
+        if (pbC2F.max == 0) pbC2F.max =1
+        pbC2F.progress = pref.getInt("C2FCorrect", -1)
+
+        val textView : TextView = requireActivity().findViewById(R.id.textView12)
+        textView.text = "You have done ${pbC2F.progress} Character to Fingerspell " +
+                "quizzes with accuracy of ${pbC2F.progress * 100 /pbC2F.max}"
+
+        val pbF2C : TextProgressBar = requireActivity().findViewById(R.id.progressBar4)
+        pbF2C.max = pref.getInt("F2CNumber", 1)
+        if (pbF2C.max == 0) pbF2C.max = 1
+        pbF2C.progress = pref.getInt("F2CCorrect", -1)
+
+        val textView2 : TextView = requireActivity().findViewById(R.id.textView14)
+        textView2.text = "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
+                "accuracy of ${pbF2C.progress*100/pbF2C.max}%"
+    }
+
     /**
      * This is the method to convert to another fragment.
      *

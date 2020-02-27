@@ -39,6 +39,9 @@ class QuizFingerToChar : Fragment() {
         viewModel = ViewModelProviders.of(this).get(QuizFingerToCharViewModel::class.java)
         val root = inflater.inflate(R.layout.quiz_finger_to_char_fragment, container, false)
 
+        val pref = requireContext().getSharedPreferences("LearningProgress",0)
+        val edit = pref.edit()
+        //Back button
         val button : ImageButton = root.findViewById(R.id.imageButton3)
         button.setOnClickListener{
             val fragmentManager : FragmentManager = requireFragmentManager()
@@ -48,6 +51,8 @@ class QuizFingerToChar : Fragment() {
             fragmentManager.popBackStack()
         }
 
+
+        //start button: start challenge
         val buttonStart :Button = root.findViewById(R.id.buttonStart)
         var symbol : CharSequence = ""
         var isconcl = true
@@ -64,6 +69,8 @@ class QuizFingerToChar : Fragment() {
             }
         }
 
+
+        //pop up hint: robot perform again
         val hintbutton : Button =root.findViewById(R.id.buttonHint)
         hintbutton.setOnClickListener(){
             if (symbol == "") snack(Prompt.ERROR, "You have not started!")
@@ -73,10 +80,12 @@ class QuizFingerToChar : Fragment() {
             }
         }
 
+        //submit and check
         val submitButton : Button = root.findViewById(R.id.buttonSubmit)
-        submitButton.setOnClickListener(){
+        submitButton.setOnClickListener{
             if (symbol == "") snack(Prompt.ERROR, "You have not started!")
             else {
+                edit.putInt("F2CNumber", pref.getInt("F2CNumber",0)+1).apply()
                 val text : TextView = root.findViewById(R.id.editTextF2C)
                 if (text.editableText.contains(symbol) && text.editableText.length == symbol
                         .length){
@@ -85,7 +94,7 @@ class QuizFingerToChar : Fragment() {
                     text.editableText.clear()
                     symbol = ""
                     isconcl = true
-//                    buttonStart.setTextColor(Color.BLACK)
+                    edit.putInt("F2CCorrect", pref.getInt("F2CCorrect", 0)+1).apply()
                 } else {
                     snack(Prompt.ERROR, "Wrong! The Correct one is $symbol")
                     text.editableText.clear()

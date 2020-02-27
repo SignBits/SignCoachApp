@@ -101,7 +101,8 @@
             android:contextClickable="true"
             android:fontFamily="casual"
             android:text="@string/dictionary"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:textColor="#00FFFFFF" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
