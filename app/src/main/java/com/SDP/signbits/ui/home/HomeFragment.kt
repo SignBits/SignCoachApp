@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
 
         inputbutton.setOnClickListener{
             val inputchar : CharSequence = inputBox.editableText
+            inputchar.forEach { it.toLowerCase() }
             if (inputchar.length == 0) snack(Prompt.ERROR,"Please input something!")
             else if (inputchar.length > 1) snack(Prompt.ERROR,"This is not a valid Character!")
             else if (MainActivity.alphabet.contains(inputchar[0])){
