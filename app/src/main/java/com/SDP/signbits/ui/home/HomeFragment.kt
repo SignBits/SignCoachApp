@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val pref : SharedPreferences = requireActivity().getSharedPreferences("LearningProgress",0)
         val progressBar : TextProgressBar = root.findViewById(R.id.progressBar)
         progressBar.max = MainActivity.alphabet.count()
         progressBar.progress = pref.getInt("Learning", -1)
@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
 
 
     private fun robotFingerspell(charSequence : CharSequence){
-        RPiHandler.getInstance(requireContext()).postFingerSpellRequest(charSequence)
+        RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
     }
 
 

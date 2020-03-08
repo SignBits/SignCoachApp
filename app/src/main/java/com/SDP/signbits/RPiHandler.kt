@@ -1,10 +1,14 @@
 package com.SDP.signbits
 
-import android.content.Context
+import androidx.core.content.ContextCompat
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
@@ -14,24 +18,27 @@ import org.json.JSONObject
  *
  * It owns all possible ways of communicating with the pi, once a connection has been established.
  *
- * @param context The only constructor param is context of the handler.
+ * @param activity The only constructor param is context of the handler.
  *
  */
 
-class RPiHandler constructor(private val context: Context) {
+class RPiHandler constructor(private val activity: Activity) {
 
     /**
      * This is the variable of the endpoint of the device. in the format
      * of "http://{ip-address}:{port}". By default it is the testing ip of our pikachu!
      */
     var endPoint: String = "http://192.168.105.150:5000"
+    var MY_INTERNET_PERMISSION : Int = 0
+    var MY_WIFI_PERMISSION : Int = 0
+
     /**
      * This is the getInstance method of the singleton class.
      */
     companion object {
         @Volatile
         private var INSTANCE: RPiHandler? = null
-        fun getInstance(context: Context) =
+        fun getInstance(context: Activity) =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: RPiHandler(context).also { INSTANCE = it }
             }
@@ -76,40 +83,51 @@ class RPiHandler constructor(private val context: Context) {
         throw NotImplementedError("Have not implemented this method!")
     }
 
-    private fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>){
+    private fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>) {
+        val internet = ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET) !=
+                PackageManager.PERMISSION_GRANTED
+        val wifi = ContextCompat.checkSelfPermission(activity, Manifest.permission
+            .CHANGE_WIFI_STATE) != PackageManager.PERMISSION_GRANTED
+        if (internet) {
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.INTERNET),
+                MY_INTERNET_PERMISSION)
+        } else if (wifi){
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission
+                .CHANGE_WIFI_STATE), MY_WIFI_PERMISSION)
+        } else {
 
-        val jsonParams = JSONObject(params.toMap())
+            val jsonParams = JSONObject(params.toMap())
 
-        val request = object: JsonObjectRequest(
-            Method.POST,
-            endpoint,
-            jsonParams,
-            Response.Listener { response ->
-                // Process the json
-                try {
-                    println("Response: $response")
-                }catch (e:Exception){
-                    println("Exception: $e")
+            val request = object : JsonObjectRequest(
+                Method.POST,
+                endpoint,
+                jsonParams,
+                Response.Listener { response ->
+                    // Process the json
+                    try {
+                        println("Response: $response")
+                    } catch (e: Exception) {
+                        println("Exception: $e")
+                    }
+
+                }, Response.ErrorListener {
+                    // Error in request
+                    println("Volley error: $it")
+                }) {
+
+                override fun getHeaders(): HashMap<String, String> {
+                    return hashMapOf("Content-Type" to "application/json")
                 }
-
-            }, Response.ErrorListener{
-                // Error in request
-                println("Volley error: $it")
-            }){
-
-            override fun getHeaders(): HashMap<String, String>{
-                return hashMapOf("Content-Type" to "application/json")
             }
+
+            // Volley request policy, only one time request to avoid duplicate transaction
+            request.retryPolicy = DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
+                0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+                1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            )
+
+            VolleySingleton.getInstance(this.activity).addToRequestQueue(request)
         }
-
-        // Volley request policy, only one time request to avoid duplicate transaction
-        request.retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, // 0 means no retry
-            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
-            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        )
-
-        VolleySingleton.getInstance(this.context).addToRequestQueue(request)
     }
-
 }

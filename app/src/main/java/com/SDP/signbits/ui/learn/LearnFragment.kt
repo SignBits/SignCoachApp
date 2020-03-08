@@ -65,7 +65,7 @@ class LearnFragment : Fragment() {
             //textView.text = it
         })
 
-        val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
+        val pref : SharedPreferences = requireActivity().getSharedPreferences("LearningProgress",0)
 
         val buttonPrevious : Button = root.findViewById(R.id.learn_previous)
         val buttonNext : Button = root.findViewById(R.id.learn_next)
@@ -103,7 +103,7 @@ class LearnFragment : Fragment() {
         }
 
         buttonFinger.setOnClickListener{
-            RPiHandler.getInstance(context!!).postFingerSpellRequest(currentChar.toString())
+            RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(currentChar.toString())
             snack(Prompt.SUCCESS, "Look at the robot!")
         }
 
