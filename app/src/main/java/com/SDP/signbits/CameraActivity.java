@@ -17,8 +17,10 @@
 package com.SDP.signbits;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
@@ -34,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
+import android.util.Log;
 import android.util.Size;
 import android.view.MenuItem;
 import android.view.Surface;
@@ -69,7 +72,7 @@ public abstract class CameraActivity extends AppCompatActivity
         View.OnClickListener,
         AdapterView.OnItemSelectedListener {
     private static final Logger LOGGER = new Logger();
-
+    private static final int RecognitionResultCode = 1;
     private static final int PERMISSIONS_REQUEST = 1;
 
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
@@ -107,18 +110,23 @@ public abstract class CameraActivity extends AppCompatActivity
     private Model model = Model.QUANTIZED;
     private Device device = Device.CPU;
     private int numThreads = -1;
+    private CharSequence correctSequence = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         LOGGER.d("onCreate " + this);
         super.onCreate(savedInstanceState);
 
-//        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.tfe_ic_activity_camera);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        correctSequence = getIntent().getCharSequenceExtra("CharSequence");
+        if (correctSequence != null) Log.d("CameraFragment",String.format("Correct Sequence " +
+                "Received: %s", correctSequence.toString()));
+        else Log.d("CameraFragment", "No correct sequence");
 
         if (hasPermission()) {
             setFragment();
@@ -211,6 +219,7 @@ public abstract class CameraActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == android.R.id.home) {
             onBackPressed();
+            setResult(Activity.RESULT_CANCELED);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -444,6 +453,7 @@ public abstract class CameraActivity extends AppCompatActivity
     private String chooseCamera() {
         final CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
+            Log.d("CameraManager", String.valueOf(manager.getCameraIdList().length));
             for (final String cameraId : manager.getCameraIdList()) {
                 final CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
 
@@ -452,7 +462,7 @@ public abstract class CameraActivity extends AppCompatActivity
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_BACK) {
                     continue;
                 }
-
+                Log.d("CameraManager/facing", String.valueOf(facing));
                 final StreamConfigurationMap map =
                         characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
 
@@ -479,6 +489,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
     protected void setFragment() {
         String cameraId = chooseCamera();
+        Log.d("CameraManager/cameraId", String.valueOf(cameraId));
 
         Fragment fragment;
         if (useCamera2API) {
@@ -542,13 +553,18 @@ public abstract class CameraActivity extends AppCompatActivity
     protected void showResultsInBottomSheet(List<Recognition> results) {
         if (results != null && results.size() >= 3) {
             Recognition recognition = results.get(0);
+//            Log.d("Camera/result/recognition",recognition.getTitle());
             if (recognition != null) {
                 if (recognition.getTitle() != null) recognitionTextView.setText(recognition.getTitle());
                 if (recognition.getConfidence() != null)
                     recognitionValueTextView.setText(
                             String.format("%.2f", (100 * recognition.getConfidence())) + "%");
             }
-
+            if (recognition.getTitle().toUpperCase().equals(correctSequence.toString().toUpperCase())) {
+                setResult(Activity.RESULT_OK);
+                Log.d("Camera/result","Correct");
+                finish();
+            }
             Recognition recognition1 = results.get(1);
             if (recognition1 != null) {
                 if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
