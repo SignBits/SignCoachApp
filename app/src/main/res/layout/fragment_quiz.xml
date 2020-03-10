@@ -3,20 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardC2F"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/cardF2C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/card_back"
             android:orientation="vertical">
 
             <TextView
@@ -29,26 +32,43 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="197dp"
-                android:layout_height="144dp"
-                android:layout_gravity="center"
-                android:paddingTop="10dp"
-                android:visibility="visible"
-                app:srcCompat="@mipmap/ic_quiz_c2f" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <com.SDP.signbits.TextProgressBar
-                android:id="@+id/progressBar3"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_gravity="center"
-                android:max="100"
-                android:progress="25"
-                android:progressTint="#8BC34A"
-                android:scaleX="10"
-                android:scaleY="10" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@mipmap/ic_quiz_c2f" />
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar3"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:secondaryProgress="100"
+                        android:max="100"
+                        android:progressDrawable="@drawable/circular" />
+
+                    <TextView
+                        android:id="@+id/tv_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="casual"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView12"
@@ -65,18 +85,19 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardF2C"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardC2F" >
+        app:layout_constraintTop_toBottomOf="@id/cardC2F">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/card_back"
             android:orientation="vertical">
 
             <TextView
@@ -89,26 +110,43 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="158dp"
-                android:layout_height="155dp"
-                android:layout_gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:srcCompat="@mipmap/ic_quiz_f2c" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <com.SDP.signbits.TextProgressBar
-                android:id="@+id/progressBar4"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_gravity="center"
-                android:max="100"
-                android:progress="15"
-                android:progressTint="#03A9F4"
-                android:scaleX="10"
-                android:scaleY="10" />
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@mipmap/ic_quiz_f2c" />
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar4"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:secondaryProgress="100"
+                        android:progressDrawable="@drawable/circular" />
+
+                    <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="casual"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView14"

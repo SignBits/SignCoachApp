@@ -43,21 +43,24 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
 
-        settingContact.setOnClickListener {
+        linear_5.setOnClickListener {
             val menu = PopupMenu(context, it)
             menu.inflate(R.menu.popup_menu)
             menu.show()
         }
 
-        settingTC.setOnClickListener {
+        linear_4.setOnClickListener {
             terms_and_conditions()
         }
 
-        settingUpdate.setOnClickListener(){
+        linear_1.setOnClickListener(){
             check_for_update()
         }
 
-        settingClearProgress.setOnClickListener(){
+        linear_2.setOnClickListener(){
+        }
+
+        linear_3.setOnClickListener(){
             clearPref()
         }
 
