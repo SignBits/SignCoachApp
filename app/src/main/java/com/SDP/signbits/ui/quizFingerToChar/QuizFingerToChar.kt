@@ -1,25 +1,23 @@
 package com.SDP.signbits.ui.quizFingerToChar
 
-import android.app.VoiceInteractor
+import android.app.AlertDialog
 import android.content.SharedPreferences
-import android.graphics.Color
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.RPiHandler
-import java.lang.StringBuilder
-import com.trycatch.mysnackbar.TSnackbar
 import com.trycatch.mysnackbar.Prompt
+import com.trycatch.mysnackbar.TSnackbar
 
 
 class QuizFingerToChar : Fragment() {
@@ -100,6 +98,13 @@ class QuizFingerToChar : Fragment() {
                     text.editableText.clear()
                 }
 
+                AlertDialog.Builder(requireActivity())
+                    .setMessage("")
+                    .setTitle("Correct!")
+                    .setPositiveButton("Yes", null)
+                    .setNeutralButton("No", null)
+                    .create()
+                    .show()
             }
         }
 
