@@ -51,7 +51,7 @@ class QuizFingerToChar : Fragment() {
 
 
         //start button: start challenge
-        val buttonStart :Button = root.findViewById(R.id.buttonStart)
+        val buttonStart : androidx.appcompat.widget.AppCompatImageView = root.findViewById(R.id.buttonStart)
         var symbol : CharSequence = ""
         var isconcl = true
         buttonStart.setOnClickListener{
