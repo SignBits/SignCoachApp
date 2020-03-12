@@ -1,5 +1,7 @@
 package com.SDP.signbits.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
         //text check button
         val spinner : Spinner = root.findViewById(R.id.spinner)
 
-        val character = arrayOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        val character = arrayOf("Choose One Character","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 
         val adapter = ArrayAdapter(
             requireActivity(),
@@ -48,6 +50,7 @@ class HomeFragment : Fragment() {
         )
 
         spinner.adapter = adapter
+        spinner.prompt = character[0]
 
         var choosen_character : String
 
@@ -55,7 +58,17 @@ class HomeFragment : Fragment() {
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
                 choosen_character = parent.getItemAtPosition(position).toString()
+                if (choosen_character != character[0])
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("We do support this!")
+                        .setTitle("Do you want the robot to perform the chatacter?")
+                        .setPositiveButton("Yes",
+                            { dialog, which ->  onClick(dialog, which, choosen_character)})
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
             }
+
 
             override fun onNothingSelected(parent: AdapterView<*>){
                 // Another interface callback
@@ -86,7 +99,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun robotFingerspell(charSequence : CharSequence){
+    private fun robotFingerspell(charSequence : CharSequence) {
         RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
     }
 
@@ -98,6 +111,12 @@ class HomeFragment : Fragment() {
 
     private fun moveToAnotherFragment(fragment: Fragment){
         requireFragmentManager().beginTransaction().replace(this.id,fragment).commit()
+    }
+
+    fun onClick(diag: DialogInterface, which: Int, charSequence: CharSequence) {
+        when (which){
+            -1 -> robotFingerspell(charSequence)
+        }
     }
 
 
