@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/learn_image"
-            android:layout_width="351dp"
-            android:layout_height="300dp"
+            android:layout_width="318dp"
+            android:layout_height="308dp"
             android:layout_weight="2"
             app:srcCompat="@mipmap/ic_letter_b"
             tools:srcCompat="@mipmap/ic_letter_b_foreground" />

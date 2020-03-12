@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         val adapter = ArrayAdapter(
             requireActivity(),
-            android.R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_dropdown_item,
             character
         )
 
