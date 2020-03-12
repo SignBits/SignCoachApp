@@ -81,11 +81,9 @@ class SettingFragment : Fragment() {
 
     private fun terms_and_conditions(){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        val transaction = fragmentManger.beginTransaction().apply {
-            replace(this@SettingFragment.id, SettingTermFragment())
-            addToBackStack(null)
-        }
-        transaction.commit()
+        fragmentManger.beginTransaction().apply {
+            replace(this@SettingFragment.id, SettingTermFragment.newInstance())
+        }.commit()
     }
 
     private fun snack(prompt: Prompt, text: CharSequence){
