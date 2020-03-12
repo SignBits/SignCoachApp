@@ -12,6 +12,8 @@ matplotlib = "*"
 jupyter = "*"
 ipykernel = "*"
 pillow = "*"
+opencv-python = "*"
+opencv-python-headless = "*"
 
 [requires]
 python_version = "3.6"
