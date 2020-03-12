@@ -53,16 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutTopBar" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="207dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayoutQuiz"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C"
-        tools:src="@tools:sample/backgrounds/scenic" />
-
     <LinearLayout
         android:id="@+id/LinearLayoutQuiz"
         android:layout_width="0dp"
@@ -77,14 +67,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Start" />
 
             <Button
                 android:id="@+id/buttonHint"
@@ -119,15 +101,27 @@
                 android:fontFamily="casual"
                 android:text="Submit" />
 
-            <Button
-                android:id="@+id/buttonNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Next" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/ic_launcher_background"
+        android:fontFamily="casual"
+        android:text="Skip"
+        tools:layout_editor_absoluteX="307dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <ImageButton
+        android:id="@+id/buttonStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/button"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="304dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
