@@ -1,5 +1,7 @@
 package com.SDP.signbits.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +12,16 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.TextProgressBar
+import com.SDP.signbits.ui.learn.LearnFragment
+import com.SDP.signbits.ui.quiz.QuizFragment
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
@@ -34,9 +40,8 @@ class HomeFragment : Fragment() {
 
         //text check button
         val spinner : Spinner = root.findViewById(R.id.spinner)
-//        val inputbutton : Button = root.findViewById(R.id.inputButton_home)
 
-        val character = arrayOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        val character = arrayOf("Choose One Character","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 
         val adapter = ArrayAdapter(
             requireActivity(),
@@ -45,6 +50,7 @@ class HomeFragment : Fragment() {
         )
 
         spinner.adapter = adapter
+        spinner.prompt = character[0]
 
         var choosen_character : String
 
@@ -52,26 +58,23 @@ class HomeFragment : Fragment() {
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
                 choosen_character = parent.getItemAtPosition(position).toString()
+                if (choosen_character != character[0])
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("We do support this!")
+                        .setTitle("Do you want the robot to perform the chatacter?")
+                        .setPositiveButton("Yes",
+                            { dialog, which ->  onClick(dialog, which, choosen_character)})
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
             }
+
 
             override fun onNothingSelected(parent: AdapterView<*>){
                 // Another interface callback
             }
         }
 
-//        inputbutton.setOnClickListener{
-//            val inputchar : CharSequence = inputBox.editableText
-//            inputchar.forEach { it.toLowerCase() }
-//            if (inputchar.length == 0) snack(Prompt.ERROR,"Please input something!")
-//            else if (inputchar.length > 1) snack(Prompt.ERROR,"This is not a valid Character!")
-//            else if (MainActivity.alphabet.contains(inputchar[0])){
-//                snack(Prompt.SUCCESS,"We do support this! The robot will perform it now!")
-//                robotFingerspell(inputchar)
-//            }
-//            else {
-//                snack(Prompt.WARNING,"Sorry! We currently do not support this!")
-//            }
-//        }
 
         val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
         val progressBar : TextProgressBar = root.findViewById(R.id.progressBar)
@@ -96,9 +99,7 @@ class HomeFragment : Fragment() {
     }
 
 
-
-
-    private fun robotFingerspell(charSequence : CharSequence){
+    private fun robotFingerspell(charSequence : CharSequence) {
         RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
     }
 
@@ -106,6 +107,16 @@ class HomeFragment : Fragment() {
     private fun snack(prompt: Prompt, text: CharSequence){
         val duration = TSnackbar.LENGTH_SHORT
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
+    private fun moveToAnotherFragment(fragment: Fragment){
+        requireFragmentManager().beginTransaction().replace(this.id,fragment).commit()
+    }
+
+    fun onClick(diag: DialogInterface, which: Int, charSequence: CharSequence) {
+        when (which){
+            -1 -> robotFingerspell(charSequence)
+        }
     }
 
 
