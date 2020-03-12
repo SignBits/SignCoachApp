@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -51,7 +52,7 @@ class QuizFingerToChar : Fragment() {
 
 
         //start button: start challenge
-        val buttonStart : androidx.appcompat.widget.AppCompatImageView = root.findViewById(R.id.buttonStart)
+        val buttonStart : ImageView = root.findViewById(R.id.buttonStart)
         var symbol : CharSequence = ""
         var isconcl = true
         buttonStart.setOnClickListener{
@@ -119,6 +120,10 @@ class QuizFingerToChar : Fragment() {
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
 
     private fun randomString() : CharSequence {
         val generator = java.util.Random()

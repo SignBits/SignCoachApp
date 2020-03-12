@@ -43,13 +43,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="28dp"
         android:fontFamily="casual"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/InstructionF2C"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutTopBar" />
 
@@ -68,24 +70,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Hint" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextF2C"
-            android:layout_width="384dp"
-            android:layout_height="wrap_content"
-            android:autoText="false"
-            android:ems="10"
-            android:fontFamily="casual"
-            android:hint="@string/HintTextF2C"
-            android:inputType="textCapSentences|textCapCharacters" />
 
         <LinearLayout
             android:id="@+id/LinearLayoutButtons"
@@ -93,35 +78,92 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Submit" />
-
         </LinearLayout>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/ic_launcher_background"
-        android:fontFamily="casual"
-        android:text="Skip"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="158dp" />
-
-    <ImageButton
+    <ImageView
         android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
+        android:layout_width="199dp"
+        android:layout_height="159dp"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="83dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="76dp"
+        android:src="@mipmap/button_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:srcCompat="@mipmap/button_foreground" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@mipmap/button"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="304dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C">
+
+        <Button
+            android:id="@+id/buttonHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="Hint" />
+
+        <Space
+            android:layout_width="126dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/ic_launcher_background"
+            android:fontFamily="casual"
+            android:text="Skip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="89dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/LinearLayoutQuiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStart">
+
+        <EditText
+            android:id="@+id/editTextF2C"
+            android:layout_width="294dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:autoText="false"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:hint="@string/HintTextF2C"
+            android:inputType="textCapSentences|textCapCharacters" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="Submit" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

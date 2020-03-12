@@ -73,8 +73,8 @@ class LearnFragment : Fragment() {
         Log.d("LearnCreate", "Learn Fragment is created")
         val pref : SharedPreferences = requireActivity().getSharedPreferences("LearningProgress",0)
 
-        val buttonPrevious : Button = root.findViewById(R.id.learn_previous)
-        val buttonNext : Button = root.findViewById(R.id.learn_next)
+        val buttonPrevious : android.widget.ImageButton = root.findViewById(R.id.learn_previous)
+        val buttonNext : android.widget.ImageButton = root.findViewById(R.id.learn_next)
         val buttonFinger :Button = root.findViewById(R.id.learn_fingerspell)
         val buttonAttempt :Button = root.findViewById(R.id.learn_attempt)
         val image : ImageView = root.findViewById(R.id.learn_image)
