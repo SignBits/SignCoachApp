@@ -60,8 +60,8 @@ class HomeFragment : Fragment() {
                 choosen_character = parent.getItemAtPosition(position).toString()
                 if (choosen_character != character[0])
                     AlertDialog.Builder(requireActivity())
-                        .setMessage("We do support this!")
-                        .setTitle("Do you want the robot to perform the chatacter?")
+                        .setMessage("Do you want the robot to perform the character?")
+                        .setTitle("We do support this!")
                         .setPositiveButton("Yes",
                             { dialog, which ->  onClick(dialog, which, choosen_character)})
                         .setNeutralButton("No", null)

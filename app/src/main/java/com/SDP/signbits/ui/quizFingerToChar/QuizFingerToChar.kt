@@ -69,6 +69,10 @@ class QuizFingerToChar : Fragment() {
         }
 
 
+
+
+
+
         //pop up hint: robot perform again
         val hintbutton : Button =root.findViewById(R.id.buttonHint)
         hintbutton.setOnClickListener(){
@@ -94,18 +98,34 @@ class QuizFingerToChar : Fragment() {
                     symbol = ""
                     isconcl = true
                     edit.putInt("F2CCorrect", pref.getInt("F2CCorrect", 0)+1).apply()
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("")
+                        .setTitle("Correct!")
+                        .setMessage("Move the next quiz?")
+                        .setPositiveButton("Yes") { dialog, which ->
+                            symbol = ""
+                            snack(Prompt.SUCCESS, "Moved to the Next Challenge!")
+                            isconcl = true
+                        }
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
                 } else {
                     snack(Prompt.ERROR, "Wrong! The Correct one is $symbol")
                     text.editableText.clear()
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("")
+                        .setTitle("Wrong!")
+                        .setMessage("Skip this challenge?")
+                        .setPositiveButton("Yes") { dialog, which ->
+                            symbol = ""
+                            snack(Prompt.SUCCESS, "Moved to the Next Challenge!")
+                            isconcl = true
+                        }
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
                 }
-
-                AlertDialog.Builder(requireActivity())
-                    .setMessage("")
-                    .setTitle("Correct!")
-                    .setPositiveButton("Yes", null)
-                    .setNeutralButton("No", null)
-                    .create()
-                    .show()
             }
         }
 
@@ -124,6 +144,7 @@ class QuizFingerToChar : Fragment() {
         super.onStart()
 
     }
+
 
     private fun randomString() : CharSequence {
         val generator = java.util.Random()
@@ -147,6 +168,9 @@ class QuizFingerToChar : Fragment() {
         val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
 
     }
+
+
+    ;
 
 
 }

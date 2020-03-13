@@ -40,11 +40,12 @@
     <string name="quizpage">Back</string>
     <string name="TopBarTextF2C">Fingerspell to Character Quiz</string>
     <string name="InstructionF2C">Identify the fingerspell performed by the robot, and enter the corresponding sequence</string>
+    <string name="start_button_clicked">You clicked Start!</string>
 
     <!-- Home Page-->
     <string name="Inputboxhint">Enter a character to check whether we support it!</string>
     <string name="dictionary">Full supported dictionary can be found the setting panel</string>
-    <string name="HintTextF2C">Character Sequence the robot is fingerspelling</string>
+    <string name="HintTextF2C">Character Sequence</string>
     <string name="learningProgress">Learning Progress</string>
     <string name="QuizProgress">Quiz Challenge Progress</string>
 
