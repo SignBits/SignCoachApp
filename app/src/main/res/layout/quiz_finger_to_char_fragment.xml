@@ -41,7 +41,7 @@
     <TextView
         android:id="@+id/textViewInstructionF2C"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="70dp"
         android:fontFamily="casual"
@@ -82,13 +82,14 @@
 
     </LinearLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/buttonStart"
         android:layout_width="199dp"
         android:layout_height="159dp"
         android:layout_marginStart="107dp"
         android:layout_marginTop="83dp"
         android:layout_marginEnd="106dp"
+        android:background="#00FF0000"
         android:src="@mipmap/button_foreground"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +104,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_marginStart="16dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
@@ -117,20 +119,17 @@
             android:id="@+id/buttonHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:fontFamily="casual"
             android:text="Hint" />
 
         <Space
             android:layout_width="126dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/buttonNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/ic_launcher_background"
             android:fontFamily="casual"
             android:text="Next" />

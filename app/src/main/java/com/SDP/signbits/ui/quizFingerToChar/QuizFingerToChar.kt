@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -55,18 +56,31 @@ class QuizFingerToChar : Fragment() {
         val buttonStart : ImageView = root.findViewById(R.id.buttonStart)
         var symbol : CharSequence = ""
         var isconcl = true
-        buttonStart.setOnClickListener{
-            if (isconcl){
-                symbol = randomString()
-                Log.d("Learning Random String", symbol.toString())
-                RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
+        buttonStart.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+            when (motionEvent.action){
+                MotionEvent.ACTION_DOWN -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground_press)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground_press)
+                }
+                MotionEvent.ACTION_UP -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground)
+
+                    if (isconcl){
+                        symbol = randomString()
+                        Log.d("Learning Random String", symbol.toString())
+                        RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
 //                buttonStart.setTextColor(Color.RED)
-                isconcl = false
-                snack(Prompt.SUCCESS, "Look at the SignBits!")
-            } else {
-                snack(Prompt.ERROR, "You have already started!!")
+                        isconcl = false
+                        snack(Prompt.SUCCESS, "Look at the SignBits!")
+                    } else {
+                        snack(Prompt.ERROR, "You have already started!!")
+                    }
+                }
             }
-        }
+            return@OnTouchListener true
+        })
 
 
 
