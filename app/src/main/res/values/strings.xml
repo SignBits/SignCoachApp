@@ -70,6 +70,7 @@
     </string-array>
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
+    <string name="fingerspell">Show Sign</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
         <item>GPU</item>
