@@ -11,7 +11,9 @@
         android:id="@+id/LinearLayoutTopBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textViewInstructionF2C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,17 +88,16 @@
         android:id="@+id/buttonStart"
         android:layout_width="199dp"
         android:layout_height="159dp"
-        android:layout_marginStart="107dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="83dp"
-        android:layout_marginEnd="106dp"
+        android:layout_marginEnd="50dp"
         android:background="#00FF0000"
+        android:contentDescription="@string/start_button_clicked"
         android:src="@mipmap/button_foreground"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        android:contentDescription="@string/start_button_clicked"
 
         app:srcCompat="@mipmap/button_foreground" />
 
@@ -119,6 +120,7 @@
             android:id="@+id/buttonHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/back_icon_background"
             android:fontFamily="casual"
             android:text="Hint" />
 

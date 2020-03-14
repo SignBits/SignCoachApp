@@ -24,7 +24,7 @@ import java.io.*
 class MainActivity : AppCompatActivity() {
 
     companion object{
-        val alphabet = 'A'..'Z'
+        val alphabet = "ABCDEFGJK"
     }
     private var fragmentName : String? = "Home"
 
@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("C2FNumber", 0)
         if (pref.getInt("C2FCorrect", -1) == -1)
             editor.putInt("C2FCorrect", 0)
+        if (pref.getString("LearnSequence", "").equals(""))
+            editor.putString("LearnSequence","A")
         editor.apply()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
