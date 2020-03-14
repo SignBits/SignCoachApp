@@ -118,9 +118,10 @@ class LearnFragment : Fragment() {
     private fun getPreviousChar() : Char? {
         val pref: SharedPreferences = requireActivity().getSharedPreferences("LearningProgress", 0)
         val string = pref.getString("LearnSequence", "A")
-        if (string != null) {
+        if (string != null && string.length >= 2) {
             return string.get(string.length-2)
         } else {
+            snack(Prompt.ERROR, "You don't have previous history!")
             return null
         }
 
