@@ -36,27 +36,27 @@
      android:layout_height="1dp"
      android:background="#8E8B8B" />
 
- <LinearLayout
-     android:id="@+id/linear_2"
-     android:layout_width="match_parent"
-     android:layout_height="60dp"
-     android:background="@drawable/linear_shape_selector"
-     android:gravity="center_vertical"
-     android:orientation="vertical">
+<!-- <LinearLayout-->
+<!--     android:id="@+id/linear_2"-->
+<!--     android:layout_width="match_parent"-->
+<!--     android:layout_height="60dp"-->
+<!--     android:background="@drawable/linear_shape_selector"-->
+<!--     android:gravity="center_vertical"-->
+<!--     android:orientation="vertical">-->
 
-  <TextView
-      android:id="@+id/settingSearch"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="casual"
-      android:text="@string/setting2"
-      android:textSize="24sp" />
- </LinearLayout>
+<!--  <TextView-->
+<!--      android:id="@+id/settingSearch"-->
+<!--      android:layout_width="wrap_content"-->
+<!--      android:layout_height="wrap_content"-->
+<!--      android:fontFamily="casual"-->
+<!--      android:text="@string/setting2"-->
+<!--      android:textSize="24sp" />-->
+<!-- </LinearLayout>-->
 
- <View
-     android:layout_width="match_parent"
-     android:layout_height="1dp"
-     android:background="#8E8B8B" />
+<!-- <View-->
+<!--     android:layout_width="match_parent"-->
+<!--     android:layout_height="1dp"-->
+<!--     android:background="#8E8B8B" />-->
 
  <LinearLayout
      android:id="@+id/linear_3"

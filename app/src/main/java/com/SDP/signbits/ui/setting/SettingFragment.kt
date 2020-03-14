@@ -57,9 +57,6 @@ class SettingFragment : Fragment() {
             check_for_update()
         }
 
-        linear_2.setOnClickListener(){
-        }
-
         linear_3.setOnClickListener(){
             clearPref()
         }
