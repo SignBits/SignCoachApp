@@ -154,11 +154,6 @@ class QuizFingerToChar : Fragment() {
         return root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
 
     private fun randomString() : CharSequence {
         val generator = java.util.Random()

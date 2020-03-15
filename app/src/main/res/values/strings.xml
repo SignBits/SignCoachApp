@@ -71,6 +71,7 @@
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
     <string name="fingerspell">Show Sign</string>
+    <string name="learnInstruction">Click on SHOW SIGN to let the robot show the character or ATTEMPT the character and get it checked!</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
         <item>GPU</item>

@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         //text check button
         val spinner : Spinner = root.findViewById(R.id.spinner)
 
-        val character = arrayOf("Choose One Character","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        val character = arrayOf("Choose One Character to check our support","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 
         val adapter = ArrayAdapter(
             requireActivity(),

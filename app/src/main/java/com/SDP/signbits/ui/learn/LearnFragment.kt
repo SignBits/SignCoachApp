@@ -121,7 +121,7 @@ class LearnFragment : Fragment() {
         if (string != null && string.length >= 2) {
             return string.get(string.length-2)
         } else {
-            snack(Prompt.ERROR, "You don't have previous history!")
+            snack(Prompt.ERROR, "You don't have any previous history!")
             return null
         }
 

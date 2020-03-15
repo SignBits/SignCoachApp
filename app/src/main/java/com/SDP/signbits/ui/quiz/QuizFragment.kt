@@ -41,7 +41,8 @@ class QuizFragment : Fragment() {
 
 
         val textView : TextView = root.findViewById(R.id.textView12)
-        textView.text = "You have done ${pbC2F.progress} Character to Fingerspell " +
+        textView.text = "Perform the character and get it checked!\n" +
+            "You have done ${pbC2F.progress} Character to Fingerspell " +
                 "quizzes with accuracy of ${pbC2F.progress * 100 /pbC2F.max}"
 
         val tv_1 : TextView = root.findViewById(R.id.tv_1)
@@ -53,7 +54,8 @@ class QuizFragment : Fragment() {
         pbF2C.progress = pref.getInt("F2CCorrect", -1)
 
         val textView2 : TextView = root.findViewById(R.id.textView14)
-        textView2.text = "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
+        textView2.text = "Identify the character performed by the robot!\n" +
+                "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
                 "accuracy of ${pbF2C.progress*100/pbF2C.max}%"
 
         val tv_2 : TextView = root.findViewById(R.id.tv_2)
@@ -78,7 +80,8 @@ class QuizFragment : Fragment() {
         pbC2F.progress = pref.getInt("C2FCorrect", -1)
 
         val textView : TextView = requireActivity().findViewById(R.id.textView12)
-        textView.text = "You have done ${pbC2F.progress} Character to Fingerspell " +
+        textView.text = "Perform the character and get it checked!\n" +
+            "You have done ${pbC2F.progress} Character to Fingerspell " +
                 "quizzes with accuracy of ${pbC2F.progress * 100 /pbC2F.max}"
 
         val tv_1 : TextView = requireActivity().findViewById(R.id.tv_1)
@@ -90,7 +93,8 @@ class QuizFragment : Fragment() {
         pbF2C.progress = pref.getInt("F2CCorrect", -1)
 
         val textView2 : TextView = requireActivity().findViewById(R.id.textView14)
-        textView2.text = "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
+        textView2.text = "Identify the character performed by the robot!\n" +
+            "You have done ${pbF2C.progress} Fingerspell to Character quizzes with " +
                 "accuracy of ${pbF2C.progress*100/pbF2C.max}%"
 
         val tv_2 : TextView = requireActivity().findViewById(R.id.tv_2)
