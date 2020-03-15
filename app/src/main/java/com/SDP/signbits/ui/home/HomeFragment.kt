@@ -109,13 +109,13 @@ class HomeFragment : Fragment() {
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
     }
 
-    private fun moveToAnotherFragment(fragment: Fragment){
-        requireFragmentManager().beginTransaction().replace(this.id,fragment).commit()
-    }
 
     fun onClick(diag: DialogInterface, which: Int, charSequence: CharSequence) {
         when (which){
-            -1 -> robotFingerspell(charSequence)
+            -1 -> {
+                robotFingerspell(charSequence)
+                snack(Prompt.SUCCESS, "Look at the Robot")
+            }
         }
     }
 
