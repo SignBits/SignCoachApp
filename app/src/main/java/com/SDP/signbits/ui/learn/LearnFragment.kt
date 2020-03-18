@@ -110,6 +110,7 @@ class LearnFragment : Fragment() {
 
     }
 
+
     private fun getCurrentChar() : Char? {
         val pref: SharedPreferences = requireActivity().getSharedPreferences("LearningProgress", 0)
         return pref.getString("LearnSequence", "A")?.last()

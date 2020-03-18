@@ -1,24 +1,25 @@
 package com.SDP.signbits.ui.home
 
+import android.app.ActionBar
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.TextProgressBar
-import com.SDP.signbits.ui.learn.LearnFragment
-import com.SDP.signbits.ui.quiz.QuizFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -98,6 +99,19 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+        LinearLayoutProgress1.setOnClickListener {
+            val bottomNavigationView : BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+            onNavDestinationSelected(bottomNavigationView.menu.findItem(R.id.navigation_learn),
+                requireActivity().findNavController(R.id.nav_host_fragment))
+        }
+        LinearLayoutProgress2.setOnClickListener {
+            val bottomNavigationView : BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+            onNavDestinationSelected(bottomNavigationView.menu.findItem(R.id.navigation_quiz),
+                requireActivity().findNavController(R.id.nav_host_fragment))
+        }
+    }
 
     private fun robotFingerspell(charSequence : CharSequence) {
         RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
