@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
+import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.ui.settingTermsAndConditions.SettingTermFragment
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
@@ -57,6 +58,10 @@ class SettingFragment : Fragment() {
             check_for_update()
         }
 
+        linear_2.setOnClickListener(){
+            search_for_robot()
+        }
+
         linear_3.setOnClickListener(){
             clearPref()
         }
@@ -86,6 +91,10 @@ class SettingFragment : Fragment() {
     private fun snack(prompt: Prompt, text: CharSequence){
         val duration = TSnackbar.LENGTH_SHORT
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
+    }
+
+    private fun search_for_robot(){
+        RPiHandler.getInstance(requireActivity()).searchLAN()
     }
 
 }

@@ -17,6 +17,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
+import com.trycatch.mysnackbar.Prompt
+import com.trycatch.mysnackbar.TSnackbar
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
@@ -101,6 +103,11 @@ class RPiHandler constructor(private val activity: Activity) {
         // consider using old scan results: these are the OLD results!
         val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val results = wifiManager.scanResults
+        AlertDialog.Builder(activity)
+            .setTitle("Scan Failed!")
+            .setPositiveButton("OK", null)
+            .create()
+            .show()
 
     }
 
@@ -196,4 +203,5 @@ class RPiHandler constructor(private val activity: Activity) {
             .create()
             .show()
     }
+
 }
