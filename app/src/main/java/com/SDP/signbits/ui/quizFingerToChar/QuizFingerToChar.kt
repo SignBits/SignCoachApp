@@ -1,5 +1,6 @@
 package com.SDP.signbits.ui.quizFingerToChar
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -31,6 +32,7 @@ class QuizFingerToChar : Fragment() {
 
     private lateinit var viewModel: QuizFingerToCharViewModel
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -7,8 +7,16 @@ import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.*
 import android.content.pm.PackageManager
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiManager
+import android.os.Bundle
+import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.DialogFragment
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
@@ -59,6 +67,48 @@ class RPiHandler constructor(private val activity: Activity) {
         sendPostRequest(fingerspellEndpoint, params)
     }
 
+    /**
+     * This method
+     */
+    fun searchLAN(){
+        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
+
+        val wifiScanReceiver = object : BroadcastReceiver() {
+
+            override fun onReceive(context: Context, intent: Intent) {
+                val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
+                if (success) {
+                    scanSuccess()
+                } else {
+                    scanFailure()
+                }
+            }
+        }
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+        activity.registerReceiver(wifiScanReceiver, intentFilter)
+
+        val success = wifiManager.startScan()
+        if (!success) {
+            // scan failure handling
+            scanFailure()
+        }
+    }
+
+    private fun scanFailure(){
+        // handle failure: new scan did NOT succeed
+        // consider using old scan results: these are the OLD results!
+        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val results = wifiManager.scanResults
+
+    }
+
+    private fun scanSuccess(){
+        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val results = wifiManager.scanResults
+        createDialogueAndShow(results)
+    }
     /**
      * This method gets basic device info.
      * Need to implement with a get request here.
@@ -129,5 +179,21 @@ class RPiHandler constructor(private val activity: Activity) {
 
             VolleySingleton.getInstance(this.activity).addToRequestQueue(request)
         }
+    }
+
+    private fun createDialogueAndShow(devices: List<ScanResult>){
+        val deviceNames : Array<CharSequence> = devices.map { result -> result.operatorFriendlyName }.toTypedArray()
+        AlertDialog.Builder(activity)
+            .setTitle("Choose Device")
+            .setSingleChoiceItems(deviceNames, 0,
+                DialogInterface.OnClickListener { dialog, which ->
+                    // The 'which' argument contains the index position
+                    // of the selected item
+                    val deviceIP = devices[which].BSSID
+                    Log.d("deviceIP", deviceIP)
+                    endPoint = "http://${deviceIP}:5000"
+            })
+            .create()
+            .show()
     }
 }
