@@ -43,21 +43,21 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
 
-        settingContact.setOnClickListener {
+        linear_5.setOnClickListener {
             val menu = PopupMenu(context, it)
             menu.inflate(R.menu.popup_menu)
             menu.show()
         }
 
-        settingTC.setOnClickListener {
+        linear_4.setOnClickListener {
             terms_and_conditions()
         }
 
-        settingUpdate.setOnClickListener(){
+        linear_1.setOnClickListener(){
             check_for_update()
         }
 
-        settingClearProgress.setOnClickListener(){
+        linear_3.setOnClickListener(){
             clearPref()
         }
 
@@ -78,11 +78,9 @@ class SettingFragment : Fragment() {
 
     private fun terms_and_conditions(){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        val transaction = fragmentManger.beginTransaction().apply {
-            replace(this@SettingFragment.id, SettingTermFragment())
-            addToBackStack(null)
-        }
-        transaction.commit()
+        fragmentManger.beginTransaction().apply {
+            replace(this@SettingFragment.id, SettingTermFragment.newInstance())
+        }.commit()
     }
 
     private fun snack(prompt: Prompt, text: CharSequence){

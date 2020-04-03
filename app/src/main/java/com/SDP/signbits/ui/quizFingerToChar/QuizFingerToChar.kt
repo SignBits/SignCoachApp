@@ -1,25 +1,25 @@
 package com.SDP.signbits.ui.quizFingerToChar
 
-import android.app.VoiceInteractor
+import android.app.AlertDialog
 import android.content.SharedPreferences
-import android.graphics.Color
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.MainActivity
 import com.SDP.signbits.R
 import com.SDP.signbits.RPiHandler
-import java.lang.StringBuilder
-import com.trycatch.mysnackbar.TSnackbar
 import com.trycatch.mysnackbar.Prompt
+import com.trycatch.mysnackbar.TSnackbar
 
 
 class QuizFingerToChar : Fragment() {
@@ -53,21 +53,38 @@ class QuizFingerToChar : Fragment() {
 
 
         //start button: start challenge
-        val buttonStart :Button = root.findViewById(R.id.buttonStart)
+        val buttonStart : ImageView = root.findViewById(R.id.buttonStart)
         var symbol : CharSequence = ""
         var isconcl = true
-        buttonStart.setOnClickListener{
-            if (isconcl){
-                symbol = randomString()
-                Log.d("Learning Random String", symbol.toString())
-                RPiHandler.getInstance(requireContext()).postFingerSpellRequest(symbol)
+        buttonStart.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+            when (motionEvent.action){
+                MotionEvent.ACTION_DOWN -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground_press)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground_press)
+                }
+                MotionEvent.ACTION_UP -> {
+                    buttonStart.setImageResource(R.mipmap.button_foreground)
+
+                    if (isconcl){
+                        symbol = randomString()
+                        Log.d("Learning Random String", symbol.toString())
+                        RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
 //                buttonStart.setTextColor(Color.RED)
-                isconcl = false
-                snack(Prompt.SUCCESS, "Look at the SignBits!")
-            } else {
-                snack(Prompt.ERROR, "You have already started!!")
+                        isconcl = false
+                        snack(Prompt.SUCCESS, "Look at the SignBits!")
+                    } else {
+                        snack(Prompt.ERROR, "You have already started!!")
+                    }
+                }
             }
-        }
+            return@OnTouchListener true
+        })
+
+
+
+
 
 
         //pop up hint: robot perform again
@@ -76,7 +93,7 @@ class QuizFingerToChar : Fragment() {
             if (symbol == "") snack(Prompt.ERROR, "You have not started!")
             else {
                 snack(Prompt.WARNING, "Look at the Robot Again!")
-                RPiHandler.getInstance(requireContext()).postFingerSpellRequest(symbol)
+                RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
             }
         }
 
@@ -95,11 +112,34 @@ class QuizFingerToChar : Fragment() {
                     symbol = ""
                     isconcl = true
                     edit.putInt("F2CCorrect", pref.getInt("F2CCorrect", 0)+1).apply()
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("")
+                        .setTitle("Correct!")
+                        .setMessage("Move the next quiz?")
+                        .setPositiveButton("Yes") { dialog, which ->
+                            symbol = ""
+                            snack(Prompt.SUCCESS, "Moved to the Next Challenge!")
+                            isconcl = true
+                        }
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
                 } else {
                     snack(Prompt.ERROR, "Wrong! The Correct one is $symbol")
                     text.editableText.clear()
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("")
+                        .setTitle("Wrong!")
+                        .setMessage("Skip this challenge?")
+                        .setPositiveButton("Yes") { dialog, which ->
+                            symbol = ""
+                            snack(Prompt.SUCCESS, "Moved to the Next Challenge!")
+                            isconcl = true
+                        }
+                        .setNeutralButton("No", null)
+                        .create()
+                        .show()
                 }
-
             }
         }
 
@@ -137,6 +177,9 @@ class QuizFingerToChar : Fragment() {
         val pref : SharedPreferences = requireContext().getSharedPreferences("LearningProgress",0)
 
     }
+
+
+    ;
 
 
 }
