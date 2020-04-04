@@ -73,7 +73,7 @@ class RPiHandler constructor(private val activity: Activity) {
     fun searchLAN() {
         val thread = Thread(ReceiveUDP())
         thread.start()
-        thread.join(500)
+        thread.join(4000)
     }
 
 
@@ -156,7 +156,7 @@ class ReceiveUDP : Runnable{
         val TAG = "SCAN"
         Log.d(TAG, "Socket Started")
         try {
-            mSocket.bind(InetSocketAddress(5000))
+            mSocket.bind(InetSocketAddress(10000))
             val buffer = ByteArray(32)
             val mPacket = DatagramPacket(buffer, buffer.size)
             mSocket.receive(mPacket)
