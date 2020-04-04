@@ -12,8 +12,13 @@ import android.content.*
 import android.content.pm.PackageManager
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
+import android.os.AsyncTask
+import android.os.Handler
+import android.text.PrecomputedText
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import java.net.*
+import java.nio.Buffer
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
@@ -43,6 +48,7 @@ class RPiHandler constructor(private val activity: Activity) {
     companion object {
         @Volatile
         private var INSTANCE: RPiHandler? = null
+        var name : UDPPacket? = null
         fun getInstance(context: Activity) =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: RPiHandler(context).also { INSTANCE = it }
@@ -64,103 +70,12 @@ class RPiHandler constructor(private val activity: Activity) {
         sendPostRequest(fingerspellEndpoint, params)
     }
 
-    /**
-     * This method
-     */
-    fun searchLAN(){
-        // Instantiate a new DiscoveryListener
-        val nsdManager = activity.getSystemService(Context.NSD_SERVICE) as NsdManager
-        val discoveryListener = object : NsdManager.DiscoveryListener {
-
-            val TAG = "NSD"
-            var services : ArrayList<NsdServiceInfo> = ArrayList()
-
-            // Called as soon as service discovery begins.
-            override fun onDiscoveryStarted(regType: String) {
-                Log.d(TAG, "Service discovery started")
-                createDialog("Start Discovery!")
-            }
-
-            override fun onServiceFound(service: NsdServiceInfo) {
-                // A service was found! Do something with it.
-                Log.d(TAG, "Service discovery success$service")
-                services.add(service)
-            }
-
-            override fun onServiceLost(service: NsdServiceInfo) {
-                // When the network service is no longer available.
-                // Internal bookkeeping code goes here.
-                Log.e(TAG, "service lost: $service")
-                createDialog("Network Service Discovery is Lost!")
-            }
-
-            override fun onDiscoveryStopped(serviceType: String) {
-                Log.i(TAG, "Discovery stopped: $serviceType")
-                scanSuccess(services)
-            }
-
-            override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
-                Log.e(TAG, "Discovery failed: Error code:$errorCode")
-                nsdManager.stopServiceDiscovery(this)
-                scanFailure()
-            }
-
-            override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
-                Log.e(TAG, "Discovery failed: Error code:$errorCode")
-                nsdManager.stopServiceDiscovery(this)
-                scanFailure()
-            }
-
-        }
-        val serviceType = "_http._tcp"
-        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
+    fun searchLAN() {
+        val thread = Thread(ReceiveUDP())
+        thread.start()
+        thread.join(500)
     }
 
-    private fun scanFailure(){
-        createDialog("Scan Fail!")
-    }
-
-    private fun createDialog(msg : CharSequence){
-        AlertDialog.Builder(activity)
-            .setTitle(msg)
-            .setPositiveButton("OK", null)
-            .create()
-            .show()
-    }
-
-    private fun scanSuccess(results : List<NsdServiceInfo>){
-        if (results.isEmpty())
-            AlertDialog.Builder(activity)
-                .setTitle("No device found!")
-                .setPositiveButton("OK", null)
-                .create()
-                .show()
-        else
-            createDialogueAndShow(results)
-    }
-    /**
-     * This method gets basic device info.
-     * Need to implement with a get request here.
-     */
-    fun getDeviceInfo(){
-        throw NotImplementedError("Have not implemented this method!")
-    }
-
-    /**
-     * This method updates the basic information of the device, if allowed to.
-     * Need to implement with a put request here.
-     */
-    fun updateDeviceInfo(){
-        throw NotImplementedError("Have not implemented this method!")
-    }
-
-    /**
-     * We might also want to use usb to connect to RPi initially to tell RPi the WiFi info and
-     * also its MAC address.
-     */
-    fun connectToRPiViaUsb(){
-        throw NotImplementedError("Have not implemented this method!")
-    }
 
     private fun <T> sendPostRequest(endpoint: String, params: HashMap<T, T>) {
         val internet = ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET) !=
@@ -211,21 +126,60 @@ class RPiHandler constructor(private val activity: Activity) {
     }
 
     private fun createDialogueAndShow(devices: List<NsdServiceInfo>){
-        val deviceNames : Array<CharSequence> = devices.map { it.serviceName }.toTypedArray()
-        AlertDialog.Builder(activity)
-            .setTitle("Choose Device")
-            .setSingleChoiceItems(deviceNames, 0,
-                DialogInterface.OnClickListener { dialog, which ->
-                    // The 'which' argument contains the index position
-                    // of the selected item
-                    val deviceIP = devices[which].host
-                    val devicePort = devices[which].port
-                    Log.d("Nsd/deviceIP", deviceIP.toString())
-                    Log.d("Nsd/devicePort", deviceIP.toString())
-                    endPoint = "http://${deviceIP}:${devicePort}"
-            })
-            .create()
-            .show()
+//        val deviceNames : Array<CharSequence> = devices.map { it.serviceName }.toTypedArray()
+//        AlertDialog.Builder(activity)
+//            .setTitle("Choose Device")
+//            .setSingleChoiceItems(deviceNames, 0,
+//                DialogInterface.OnClickListener { dialog, which ->
+//                    // The 'which' argument contains the index position
+//                    // of the selected item
+//                    val deviceIP = devices[which].host
+//                    val devicePort = devices[which].port
+//                    Log.d("Nsd/deviceIP", deviceIP.toString())
+//                    Log.d("Nsd/devicePort", deviceIP.toString())
+//                    endPoint = "http://${deviceIP}:${devicePort}"
+//            })
+//            .create()
+//            .show()
+    }
+
+}
+
+data class UDPPacket(val ip: String, val port : String, val data: String)
+
+class ReceiveUDP : Runnable{
+    override fun run() {
+        RPiHandler.name = null
+        val mSocket = DatagramSocket(null)
+        mSocket.soTimeout = 20000
+        mSocket.broadcast = true
+        val TAG = "SCAN"
+        Log.d(TAG, "Socket Started")
+        try {
+            mSocket.bind(InetSocketAddress(5000))
+            val buffer = ByteArray(32)
+            val mPacket = DatagramPacket(buffer, buffer.size)
+            mSocket.receive(mPacket)
+            val ip = mPacket.address?.toString()
+            val port = mPacket.port
+            val data = String(mPacket.data, 0, mPacket.length)
+            Log.d(TAG, "ip: $ip")
+            Log.d(TAG, "port: $port")
+            Log.d(TAG, "data: $data")
+            RPiHandler.name = ip?.let { UDPPacket(it, port.toString(), data) }
+            mSocket.close()
+            Log.d(TAG, "FLAGTRUE")
+        } catch (e: SocketTimeoutException){
+            val a = "TIMEOUT"
+            RPiHandler.name = UDPPacket(ip = a, port = a, data = a)
+            mSocket.close()
+            Log.d(TAG, "FLAGTRUE")
+        } catch (e: BindException){
+            RPiHandler.name = null
+            mSocket.close()
+            Log.d(TAG, "FLAGTRUE")
+        }
+
     }
 
 }
