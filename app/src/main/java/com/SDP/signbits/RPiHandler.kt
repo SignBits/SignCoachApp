@@ -8,17 +8,12 @@ import org.json.JSONObject
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.*
 import android.content.pm.PackageManager
-import android.net.wifi.ScanResult
-import android.net.wifi.WifiManager
-import android.os.Bundle
+import android.net.nsd.NsdManager
+import android.net.nsd.NsdServiceInfo
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.DialogFragment
-import com.trycatch.mysnackbar.Prompt
-import com.trycatch.mysnackbar.TSnackbar
 
 /**
  * This is the singleton class to complete the task of communication with RPi.
@@ -73,48 +68,75 @@ class RPiHandler constructor(private val activity: Activity) {
      * This method
      */
     fun searchLAN(){
-        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        // Instantiate a new DiscoveryListener
+        val nsdManager = activity.getSystemService(Context.NSD_SERVICE) as NsdManager
+        val discoveryListener = object : NsdManager.DiscoveryListener {
 
-        val wifiScanReceiver = object : BroadcastReceiver() {
+            val TAG = "NSD"
+            var services : ArrayList<NsdServiceInfo> = ArrayList()
 
-            override fun onReceive(context: Context, intent: Intent) {
-                val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
-                if (success) {
-                    scanSuccess()
-                } else {
-                    scanFailure()
-                }
+            // Called as soon as service discovery begins.
+            override fun onDiscoveryStarted(regType: String) {
+                Log.d(TAG, "Service discovery started")
+                createDialog("Start Discovery!")
             }
-        }
 
-        val intentFilter = IntentFilter()
-        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        activity.registerReceiver(wifiScanReceiver, intentFilter)
+            override fun onServiceFound(service: NsdServiceInfo) {
+                // A service was found! Do something with it.
+                Log.d(TAG, "Service discovery success$service")
+                services.add(service)
+            }
 
-        val success = wifiManager.startScan()
-        if (!success) {
-            // scan failure handling
-            scanFailure()
+            override fun onServiceLost(service: NsdServiceInfo) {
+                // When the network service is no longer available.
+                // Internal bookkeeping code goes here.
+                Log.e(TAG, "service lost: $service")
+                createDialog("Network Service Discovery is Lost!")
+            }
+
+            override fun onDiscoveryStopped(serviceType: String) {
+                Log.i(TAG, "Discovery stopped: $serviceType")
+                scanSuccess(services)
+            }
+
+            override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Discovery failed: Error code:$errorCode")
+                nsdManager.stopServiceDiscovery(this)
+                scanFailure()
+            }
+
+            override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Discovery failed: Error code:$errorCode")
+                nsdManager.stopServiceDiscovery(this)
+                scanFailure()
+            }
+
         }
+        val serviceType = "_http._tcp"
+        nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
     }
 
     private fun scanFailure(){
-        // handle failure: new scan did NOT succeed
-        // consider using old scan results: these are the OLD results!
-        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val results = wifiManager.scanResults
+        createDialog("Scan Fail!")
+    }
+
+    private fun createDialog(msg : CharSequence){
         AlertDialog.Builder(activity)
-            .setTitle("Scan Failed!")
+            .setTitle(msg)
             .setPositiveButton("OK", null)
             .create()
             .show()
-
     }
 
-    private fun scanSuccess(){
-        val wifiManager = activity.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val results = wifiManager.scanResults
-        createDialogueAndShow(results)
+    private fun scanSuccess(results : List<NsdServiceInfo>){
+        if (results.isEmpty())
+            AlertDialog.Builder(activity)
+                .setTitle("No device found!")
+                .setPositiveButton("OK", null)
+                .create()
+                .show()
+        else
+            createDialogueAndShow(results)
     }
     /**
      * This method gets basic device info.
@@ -188,17 +210,19 @@ class RPiHandler constructor(private val activity: Activity) {
         }
     }
 
-    private fun createDialogueAndShow(devices: List<ScanResult>){
-        val deviceNames : Array<CharSequence> = devices.map { result -> result.operatorFriendlyName }.toTypedArray()
+    private fun createDialogueAndShow(devices: List<NsdServiceInfo>){
+        val deviceNames : Array<CharSequence> = devices.map { it.serviceName }.toTypedArray()
         AlertDialog.Builder(activity)
             .setTitle("Choose Device")
             .setSingleChoiceItems(deviceNames, 0,
                 DialogInterface.OnClickListener { dialog, which ->
                     // The 'which' argument contains the index position
                     // of the selected item
-                    val deviceIP = devices[which].BSSID
-                    Log.d("deviceIP", deviceIP)
-                    endPoint = "http://${deviceIP}:5000"
+                    val deviceIP = devices[which].host
+                    val devicePort = devices[which].port
+                    Log.d("Nsd/deviceIP", deviceIP.toString())
+                    Log.d("Nsd/devicePort", deviceIP.toString())
+                    endPoint = "http://${deviceIP}:${devicePort}"
             })
             .create()
             .show()
