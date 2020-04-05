@@ -72,10 +72,11 @@ class QuizFingerToChar : Fragment() {
                     if (isconcl){
                         symbol = randomString()
                         Log.d("Learning Random String", symbol.toString())
-                        RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
-//                buttonStart.setTextColor(Color.RED)
-                        isconcl = false
-                        snack(Prompt.SUCCESS, "Look at the SignBits!")
+                        val result = RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
+                        if (result) {
+                            isconcl = false
+                            snack(Prompt.SUCCESS, "Look at the SignBits!")
+                        }
                     } else {
                         snack(Prompt.ERROR, "You have already started!!")
                     }
@@ -94,8 +95,8 @@ class QuizFingerToChar : Fragment() {
         hintbutton.setOnClickListener(){
             if (symbol == "") snack(Prompt.ERROR, "You have not started!")
             else {
-                snack(Prompt.WARNING, "Look at the Robot Again!")
-                RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol)
+                if (RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(symbol))
+                    snack(Prompt.WARNING, "Look at the Robot Again!")
             }
         }
 

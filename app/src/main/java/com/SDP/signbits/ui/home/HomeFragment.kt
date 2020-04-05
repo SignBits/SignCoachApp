@@ -114,10 +114,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun robotFingerspell(charSequence : CharSequence) {
-        RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
-    }
-
 
     private fun snack(prompt: Prompt, text: CharSequence){
         val duration = TSnackbar.LENGTH_SHORT
@@ -128,8 +124,8 @@ class HomeFragment : Fragment() {
     fun onClick(diag: DialogInterface, which: Int, charSequence: CharSequence) {
         when (which){
             -1 -> {
-                robotFingerspell(charSequence)
-                snack(Prompt.SUCCESS, "Look at the Robot")
+                val result = RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(charSequence)
+                if (result) snack(Prompt.SUCCESS, "Look at the Robot")
             }
         }
     }

@@ -98,8 +98,8 @@ class LearnFragment : Fragment() {
         }
 
         buttonFinger.setOnClickListener{
-            RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(currentChar.toString())
-            snack(Prompt.SUCCESS, "Look at the robot!")
+            val result = RPiHandler.getInstance(requireActivity()).postFingerSpellRequest(currentChar.toString())
+            if (result) snack(Prompt.SUCCESS, "Look at the robot!")
         }
 
         buttonAttempt.setOnClickListener{

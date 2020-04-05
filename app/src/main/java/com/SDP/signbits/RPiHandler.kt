@@ -36,9 +36,9 @@ class RPiHandler constructor(private val activity: Activity) {
 
     /**
      * This is the variable of the endpoint of the device. in the format
-     * of "http://{ip-address}:{port}". By default it is the testing ip of our pikachu!
+     * of "http://{ip-address}:{port}". By default it is the testing ip of our pikachu!"http://192.168.105.150:5000"
      */
-    var endPoint: String = "http://192.168.105.150:5000"
+    var endPoint: String? = null
     var MY_INTERNET_PERMISSION : Int = 0
     var MY_WIFI_PERMISSION : Int = 0
 
@@ -61,13 +61,18 @@ class RPiHandler constructor(private val activity: Activity) {
      * @param charSequence This param is the character sequence to send to Pi. Might be character
      * or string.
      */
-    fun postFingerSpellRequest(charSequence: CharSequence){
+    fun postFingerSpellRequest(charSequence: CharSequence) : Boolean{
+        if (endPoint == null) {
+            createDialog("Please connect to your robot first!")
+            return false
+        }
         val fingerspellEndpoint = endPoint + "/api/fingerspell/"
 
         val params: HashMap<String, String> = hashMapOf(
             "characterSequence" to charSequence.toString()
         )
         sendPostRequest(fingerspellEndpoint, params)
+        return true
     }
 
     fun searchLAN() {
@@ -125,22 +130,12 @@ class RPiHandler constructor(private val activity: Activity) {
         }
     }
 
-    private fun createDialogueAndShow(devices: List<NsdServiceInfo>){
-//        val deviceNames : Array<CharSequence> = devices.map { it.serviceName }.toTypedArray()
-//        AlertDialog.Builder(activity)
-//            .setTitle("Choose Device")
-//            .setSingleChoiceItems(deviceNames, 0,
-//                DialogInterface.OnClickListener { dialog, which ->
-//                    // The 'which' argument contains the index position
-//                    // of the selected item
-//                    val deviceIP = devices[which].host
-//                    val devicePort = devices[which].port
-//                    Log.d("Nsd/deviceIP", deviceIP.toString())
-//                    Log.d("Nsd/devicePort", deviceIP.toString())
-//                    endPoint = "http://${deviceIP}:${devicePort}"
-//            })
-//            .create()
-//            .show()
+    private fun createDialog(msgP : CharSequence){
+        AlertDialog.Builder(activity)
+            .setTitle(msgP)
+            .setPositiveButton("OK", null)
+            .create()
+            .show()
     }
 
 }
