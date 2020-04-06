@@ -1,5 +1,7 @@
 package com.SDP.signbits.ui.setting
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.SDP.signbits.R
+import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.ui.settingTermsAndConditions.SettingTermFragment
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
@@ -43,21 +46,25 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         settingsviewModel = ViewModelProviders.of(this).get(SettingViewModel::class.java)
 
-        settingContact.setOnClickListener {
+        linear_5.setOnClickListener {
             val menu = PopupMenu(context, it)
             menu.inflate(R.menu.popup_menu)
             menu.show()
         }
 
-        settingTC.setOnClickListener {
+        linear_4.setOnClickListener {
             terms_and_conditions()
         }
 
-        settingUpdate.setOnClickListener(){
+        linear_1.setOnClickListener(){
             check_for_update()
         }
 
-        settingClearProgress.setOnClickListener(){
+        linear_2.setOnClickListener(){
+            search_for_robot()
+        }
+
+        linear_3.setOnClickListener(){
             clearPref()
         }
 
@@ -78,11 +85,44 @@ class SettingFragment : Fragment() {
 
     private fun terms_and_conditions(){
         val fragmentManger : FragmentManager = requireFragmentManager()
-        val transaction = fragmentManger.beginTransaction().apply {
-            replace(this@SettingFragment.id, SettingTermFragment())
-            addToBackStack(null)
-        }
-        transaction.commit()
+        fragmentManger.beginTransaction().apply {
+            replace(this@SettingFragment.id, SettingTermFragment.newInstance())
+        }.commit()
+    }
+
+
+
+    private fun search_for_robot(){
+        RPiHandler.getInstance(requireActivity()).searchLAN()
+        if (RPiHandler.name == null)
+            createDialog("Searching failed!", null)
+        else if (RPiHandler.name!!.data == "TIMEOUT")
+            createDialog("No device found! Restart the robot and try again!", null)
+        else
+            createDialog("Is ${RPiHandler.name!!.data} the one you want to connect to?",
+                DialogInterface.OnClickListener { dialog, which ->
+                    run {
+                        RPiHandler.getInstance(requireActivity()).endPoint =
+                            "http://${RPiHandler.name!!.ip}:5000"
+                        snack(Prompt.SUCCESS,"Connect Successfully!")
+                    }
+                })
+    }
+
+    private fun createDialog(msgP : CharSequence, listener : DialogInterface.OnClickListener?){
+        if (listener != null)
+            AlertDialog.Builder(activity)
+                .setTitle(msgP)
+                .setPositiveButton("OK", listener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show()
+        else
+            AlertDialog.Builder(activity)
+                .setTitle(msgP)
+                .setPositiveButton("OK", null)
+                .create()
+                .show()
     }
 
     private fun snack(prompt: Prompt, text: CharSequence){

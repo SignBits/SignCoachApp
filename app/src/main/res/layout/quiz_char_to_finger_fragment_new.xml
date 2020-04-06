@@ -48,6 +48,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
             android:padding="25sp">
 
@@ -55,13 +56,15 @@
                 android:id="@+id/quiz_accuracy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="casual"
                 android:text="Accuracy 80%"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/quiz_complete"
                 android:layout_width="wrap_content"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
                 android:text="0 of 26 tasks are completed"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -70,7 +73,7 @@
 
     <ImageView
         android:id="@+id/quiz_image"
-        android:layout_width="196dp"
+        android:layout_width="323dp"
         android:layout_height="224dp"
         android:layout_weight="1.5"
         app:srcCompat="@mipmap/ic_char_k" />
@@ -87,6 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Start" />
 
         <Button
@@ -94,6 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Next" />
 
 

@@ -40,11 +40,12 @@
     <string name="quizpage">Back</string>
     <string name="TopBarTextF2C">Fingerspell to Character Quiz</string>
     <string name="InstructionF2C">Identify the fingerspell performed by the robot, and enter the corresponding sequence</string>
+    <string name="start_button_clicked">You clicked Start!</string>
 
     <!-- Home Page-->
     <string name="Inputboxhint">Enter a character to check whether we support it!</string>
     <string name="dictionary">Full supported dictionary can be found the setting panel</string>
-    <string name="HintTextF2C">Character Sequence the robot is fingerspelling</string>
+    <string name="HintTextF2C">Character Sequence</string>
     <string name="learningProgress">Learning Progress</string>
     <string name="QuizProgress">Quiz Challenge Progress</string>
 
@@ -59,4 +60,21 @@
 
 <!--    Terms and Conditions-->
     <string name="term">Terms and Conditions</string>
+<!--TensorFlow Lite example file-->
+    <string name="tfe_ic_app_name" translation_description="Image Classification demo app [CHAR_LIMIT=40]">TFL Classify</string>
+    <string name="tfe_ic_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
+    <string name="tfe_ic_model" translatable="false">Model:</string>
+    <string-array name="tfe_ic_models" translatable="false">
+        <item>Float</item>
+        <item>Quantized</item>
+    </string-array>
+
+    <string name="tfe_ic_device" translatable="false">Device:</string>
+    <string name="fingerspell">Show Sign</string>
+    <string name="learnInstruction">Click on SHOW SIGN to let the robot show the character or ATTEMPT the character and get it checked!</string>
+    <string-array name="tfe_ic_devices" translatable="false">
+        <item>CPU</item>
+        <item>GPU</item>
+        <item>NNAPI</item>
+    </string-array>
 </resources>

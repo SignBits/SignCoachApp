@@ -1,31 +1,27 @@
 package com.SDP.signbits.ui.quizCharToFinger
 
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
+import com.SDP.signbits.ClassifierActivity
 import com.SDP.signbits.MainActivity
 
 import com.SDP.signbits.R
-import com.SDP.signbits.RPiHandler
 import com.SDP.signbits.ui.quiz.QuizFragment
 import com.trycatch.mysnackbar.Prompt
 import com.trycatch.mysnackbar.TSnackbar
 import kotlinx.android.synthetic.main.quiz_char_to_finger_fragment_new.*
 import java.lang.Math.random
-import java.lang.StringBuilder
 
 class QuizCharToFinger : Fragment() {
 
@@ -64,6 +60,8 @@ class QuizCharToFinger : Fragment() {
         R.mipmap.ic_char_g,
         R.mipmap.ic_char_j
     )
+    val alphabet = MainActivity.alphabet.toList()
+    val requestVisionCode = 1
 
     // last img for finish
 
@@ -98,24 +96,19 @@ class QuizCharToFinger : Fragment() {
         val image: ImageView = root.findViewById(R.id.quiz_image)
         image.setImageResource(char_array[current_char % char_array.size])
 
-        text_complete.text = (current_char).toString() + " of ${MainActivity.alphabet.count()} tasks " +
+        text_complete.text = (current_char).toString() + " of ${alphabet.size} tasks " +
         "are completed"
 
         button_start.setOnClickListener {
             userInfo.edit().putInt("C2FNumber", userInfo.getInt("C2FNumber",0)+1).apply()
             if(isconl){
-                    snack(Prompt.SUCCESS, "Correct!\n" + "Moved to the Next Challenge")
-                    current_char = (current_char + 1) % char_array.size
-                    image.setImageResource(char_array[current_char])
-                    text_complete.text = "$current_char of 26 tasks are completed"
-                    userInfo.edit().putInt("C2FCorrect", userInfo.getInt("C2FCorrect", 0)+1).apply()
+                    callVision(alphabet.get(current_char % alphabet.size).toString())
                 }else{
                     snack(Prompt.ERROR, "Wrong! Please look at the robot")
                     val corr = userInfo.getInt("C2FCorrect", 0)
                     var total = userInfo.getInt("C2FNumber", 1)
                     if (total == 0) total=1
                     text_accuracy.text = "Accuracy ${corr * 100 / total}%"
-                    FingerSpell()
             }
         }
 
@@ -123,7 +116,7 @@ class QuizCharToFinger : Fragment() {
         button_next.setOnClickListener {
             userInfo.edit().putInt("C2FNumber", userInfo.getInt("C2FNumber",0)+1).apply()
             if (current_char < char_array.size -1) {
-                current_char = (current_char + 1) % char_array.size
+                current_char = (current_char + 1) % alphabet.size
                 image.setImageResource(char_array[current_char])
                 snack(Prompt.ERROR,  "Moved to the Next Challenge")
             } else {
@@ -145,6 +138,13 @@ class QuizCharToFinger : Fragment() {
 
     }
 
+    private fun callVision(charSequence: CharSequence){
+        val intent = Intent(activity, ClassifierActivity::class.java).apply {
+            putExtra("CharSequence", charSequence)
+        }
+        startActivityForResult(intent, requestVisionCode)
+
+    }
 
     /**
      * This is the method to go back to the quiz fragment. Click on the Quiz text in Char2Finger Page
@@ -157,7 +157,6 @@ class QuizCharToFinger : Fragment() {
 
     override fun onStop() {
         super.onStop()
-
         val userInfo = this.activity?.getSharedPreferences("data", 0)
         userInfo?.edit()?.putInt("quiz", current_char)?.commit()
     }
@@ -167,8 +166,36 @@ class QuizCharToFinger : Fragment() {
         TSnackbar.make(requireView(), text, duration).setPromptThemBackground(prompt).show();
     }
 
-    private fun FingerSpell(){
-        return
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val pref : SharedPreferences = requireActivity().getSharedPreferences("LearningProgress",0)
+        val learning = pref.getInt("C2FCorrect", 0)
+        val number = pref.getInt("C2FNumber", 0)
+        pref.edit().putInt("C2FNumber", number+1)
+        if (requestCode == requestVisionCode)
+            if (resultCode ==  Activity.RESULT_OK) {
+                if (learning <= char_array.size)
+                    pref.edit().putInt("C2FCorrect", learning+1).apply()
+                snack(Prompt.SUCCESS, "Correct")
+                current_char = (current_char + 1) % char_array.size
+                val image: ImageView = requireActivity().findViewById(R.id.quiz_image)
+                image.setImageResource(char_array[current_char])
+            } else {
+                snack(Prompt.ERROR, "Wrong")
+            }
+        setText()
+    }
+
+    private fun setText(){
+        val pref : SharedPreferences = requireActivity().getSharedPreferences("LearningProgress",0)
+        val number = pref.getInt("C2FNumber", 0)
+        val correct = pref.getInt("C2FCorrect", 0)
+        val accuracytext : TextView = requireActivity().findViewById(R.id.quiz_accuracy)
+        val completetext : TextView = requireActivity().findViewById(R.id.quiz_complete)
+        accuracytext.setText("Accuracy ${correct / number * 100}%")
+        completetext.setText("${correct} of ${number} tasks are completed")
+
     }
 
 }

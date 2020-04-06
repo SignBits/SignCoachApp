@@ -10,6 +10,7 @@
         android:id="@+id/LinearLayoutProgress1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/card_back"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/LinearLayoutProgress2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,9 +19,10 @@
 
         <TextView
             android:id="@+id/textViewPB1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
+            android:layout_gravity="center_horizontal"
             android:text="@string/learningProgress"
             android:textSize="30sp" />
 
@@ -38,6 +40,7 @@
         android:id="@+id/LinearLayoutProgress2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/card_back"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +49,9 @@
 
         <TextView
             android:id="@+id/textViewPB2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="casual"
             android:text="@string/QuizProgress"
             android:textSize="30sp" />
@@ -62,48 +66,28 @@
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutProgress2">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputBoxTextHome"
-            android:layout_width="388dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:hint="@string/Inputboxhint"
-            android:inputType="textCapCharacters"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/inputButton_home"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SUBMIT" />
+            android:layout_gravity="center"
+            android:dropDownWidth="80dp"
+            android:gravity="center" />
 
-        <TextView
-            android:id="@+id/textDictionary"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contextClickable="true"
-            android:fontFamily="casual"
-            android:text="@string/dictionary"
-            android:textAlignment="textEnd"
-            android:textColor="#00FFFFFF" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

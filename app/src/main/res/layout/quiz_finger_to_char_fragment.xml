@@ -12,8 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textViewInstructionF2C"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -42,92 +43,98 @@
         android:id="@+id/textViewInstructionF2C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/InstructionF2C"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutTopBar" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="207dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayoutQuiz"
+    <ImageButton
+        android:id="@+id/buttonStart"
+        android:layout_width="199dp"
+        android:layout_height="159dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:background="#00FF0000"
+        android:contentDescription="@string/start_button_clicked"
+        android:src="@mipmap/button_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+
+        app:srcCompat="@mipmap/button_foreground" />
 
     <LinearLayout
-        android:id="@+id/LinearLayoutQuiz"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInstructionF2C">
+
+        <Button
+            android:id="@+id/buttonHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/back_icon_background"
+            android:fontFamily="casual"
+            android:text="Hint" />
+
+        <Space
+            android:layout_width="126dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/ic_launcher_background"
+            android:fontFamily="casual"
+            android:text="Next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Start" />
-
-            <Button
-                android:id="@+id/buttonHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Hint" />
-        </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStart">
 
         <EditText
             android:id="@+id/editTextF2C"
-            android:layout_width="384dp"
+            android:layout_width="294dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:autoText="false"
             android:ems="10"
             android:fontFamily="casual"
             android:hint="@string/HintTextF2C"
             android:inputType="textCapSentences|textCapCharacters" />
 
-        <LinearLayout
-            android:id="@+id/LinearLayoutButtons"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Submit" />
-
-            <Button
-                android:id="@+id/buttonNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Next" />
-        </LinearLayout>
-
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="Submit" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
